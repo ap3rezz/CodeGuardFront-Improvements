@@ -1,0 +1,21 @@
+<h1>Registrate</h1>
+<div>
+    <form [formGroup] = "signupForm" (ngSubmit)="onSubmit()">
+        <label>User Name</label>
+        <input type="text" formControlName="username"/>
+        <div class="error-feedback" *ngIf="incorrectFormSubmited && signupForm.controls.username.hasError('required')">
+            Please enter your full name
+        </div>
+        <div class="error-feedback" *ngIf="incorrectFormSubmited && signupForm.controls.username.hasError('pattern')">
+            Please enter a valid name
+        </div>
+        <br>
+        <label>Password</label>
+        <input type="password" formControlName="password"/>
+        <div class="error-feedback" *ngIf="incorrectFormSubmited && signupForm.controls.password.hasError('required')">
+            Please enter a password
+        </div>
+        <br>
+        <button type="submit">Signup</button>
+    </form>
+</div>

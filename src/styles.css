@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+.error-feedback{
+    color: red;
+    font-size: 0.9rem;
+    margin: 0.3rem !important;
+    margin-top: 0.1rem !important;
+}

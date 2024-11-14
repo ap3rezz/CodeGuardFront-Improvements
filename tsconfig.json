@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "useDefineForClassFields": false, //Without this an error occurs on the register component with the forms
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
