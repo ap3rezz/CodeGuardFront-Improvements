@@ -92,3 +92,9 @@ button{
 .register:hover{
     border: #5f6f90 2px solid;
 }
+
+a{
+    all: unset; 
+    display: inline; /* o el valor de display que necesites */
+    cursor: pointer;
+}

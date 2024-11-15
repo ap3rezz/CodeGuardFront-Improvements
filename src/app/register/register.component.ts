@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ import { UserService } from '../service/user.service';
 })
 export class RegisterComponent {
 
-  constructor(public fb:FormBuilder, private userService:UserService){}
+  constructor(public fb:FormBuilder, private userService:UserService, private router:Router){}
   incorrectFormSubmited:boolean = false;
 
   signupForm = this.fb.group({
@@ -29,6 +30,7 @@ export class RegisterComponent {
           console.log('Respuesta API: ', response);
           alert('Formulario enviado');
           this.signupForm.reset();
+          this.router.navigate(['/']);
         },
         error =>{
           console.error(error);
