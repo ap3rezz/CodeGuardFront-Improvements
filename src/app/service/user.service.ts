@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { SignupRequest } from '../model/signup-request';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +14,10 @@ export class UserService {
     headers: new HttpHeaders({'Content-Type':'application/json'})
   }
 
-  //Corregir el servicio para que los errores los maneje mejor
-
   constructor(private httpClient: HttpClient) {}
 
-  registerUser(userPost:any):Observable<any>{
-    return this.httpClient.post(this.apiURL + '/register', JSON.stringify(userPost), this.httpOptions)
-    //.pipe(catchError(this.errorHandler))
+  registerUser(SignupRequest:SignupRequest):Observable<any>{
+    return this.httpClient.post(this.apiURL + '/register', JSON.stringify(SignupRequest), this.httpOptions)
   }
 
-  /*
-  errorHandler(error:any){
-    let errormsg = "";
-    if(error.error instanceof ErrorEvent){
-      errormsg = error.error.message;
-    }else{
-      errormsg =  `Error Code : ${error.status}\n Message: ${error.message}`
-    }
-    return throwError(errormsg);
-  }
-  */
 }

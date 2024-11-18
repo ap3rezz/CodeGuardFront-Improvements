@@ -1,20 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Cormorant+Garamond&display=swap');
-
-main {
-    margin-top: 2%;
-    width: 97.1%;
-    float: left;
+.home-text {
     font-family: 'Cinzel', serif;
     color: #c9c9c9;
     background-color: #312339;
-    padding: 20px;
     border-radius: 5px;
     border: #455169 2.5px solid;
     box-shadow: 0 0 20px rgba(84, 64, 94, 0.5);
     animation: pulsate 3s infinite alternate;
     text-align: center;
 }
-
 
 @keyframes pulsate {
     0% {
@@ -32,7 +25,6 @@ p {
     text-shadow: 0 0 10px rgba(123, 104, 238, 0.5), 0 0 20px rgba(72, 61, 139, 0.4); 
     animation: glow 2s infinite alternate;
 }
-
 
 @keyframes glow {
     0% {

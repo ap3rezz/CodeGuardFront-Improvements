@@ -1,14 +1,20 @@
-<header>
-    <section class="logosection">
-        <span class="logo"><a routerLink="/">CodeGuard</a></span>
-    </section>
-    <section class="searchspellssection">
-        <a href="#" class="searchspells">Aprender echizos</a>
-        
-    </section>
-    <section class="logsection">
-        <button class="login">Log in</button>
-        <button class="register" (click)="toRegister()">Register</button>
-    </section>
+<header class="p-2 m-2">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center">
+            <a class="d-flex align-items-center me-3 mb-lg-0 text-white text-decoration-none" routerLink="/"><span class="logo">CodeGuard</span></a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li>
+                    <a href="#" class="searchspells">Learn Spells</a>
+                </li>
+            </ul>
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <input type="search" placeholder="Search Wizards..." class="form-control form-control-dark">
+            </form>
+            <div class="text-end">
+                <button type="button" class="btn login me-2">Log in</button>
+                <button type="button" class="btn register" (click)="toRegister()">Register</button>
+            </div>
+        </div>
+    </div>
 </header>
 
