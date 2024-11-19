@@ -1,0 +1,47 @@
+.resonse-container {
+    font-family: 'Cinzel', serif;
+    color: #ffffff;
+    background-color: #312339;
+    border-radius: 5px;
+    border: #455169 2.5px solid;
+    box-shadow: 0 0 20px rgba(84, 64, 94, 0.5);
+    animation: pulsate 3s infinite alternate;
+    text-align: center;
+}
+
+.status-code {
+    font-size: 5rem;
+    animation: blink 7.5s infinite;
+}
+
+.message{
+    text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 140, 0, 0.7);
+}
+
+@keyframes pulsate {
+    0% {
+        box-shadow: 0 0 15px rgba(219, 112, 112, 0.4); 
+    }
+    100% {
+        box-shadow: 0 0 35px rgb(219, 112, 112); 
+    }
+}
+
+p {
+    font-size: 1.5em;
+    line-height: 1.5;
+    color: #aeaeae;
+    text-shadow: 0 0 10px rgba(222, 238, 104, 0.5), 0 0 20px rgba(139, 132, 61, 0.4); 
+    animation: glow 1.5s infinite alternate;
+}
+
+
+
+@keyframes blink {
+    0%, 50%, 100% {
+        opacity: 1;
+    }
+    25%, 75% {
+        opacity: 0.5;
+    }
+}

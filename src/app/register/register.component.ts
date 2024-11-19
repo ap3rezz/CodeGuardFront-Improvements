@@ -47,6 +47,9 @@ export class RegisterComponent {
           },
           (error) => {
             console.error(error);
+            if(error.status == 409){
+              
+            }
           }
         );
     }
