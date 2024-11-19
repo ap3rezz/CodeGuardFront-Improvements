@@ -13,4 +13,7 @@ export class HeaderComponent {
   toRegister(){
     this.router.navigate(['/signup']);
   }
+  toLogin(){
+    this.router.navigate(['/login']);
+  }
 }

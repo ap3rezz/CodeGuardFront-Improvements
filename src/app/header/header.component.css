@@ -16,22 +16,6 @@ header{
     text-decoration: none;
     color: #aeaeae;
 }
-.login{
-    font-family: 'Cinzel', serif;
-    border: #c394da 2px solid;
-    color: #aeaeae;
-}
-.login:hover{
-    border: #6b5278 2px solid;
-}
-.register{
-    font-family: 'Cinzel', serif;
-    border: #8fa8db 2px solid;
-    color: #aeaeae;
-}
-.register:hover{
-    border: #5f6f90 2px solid;
-}
 a{
     all: unset; 
     display: inline; /* o el valor de display que necesites */

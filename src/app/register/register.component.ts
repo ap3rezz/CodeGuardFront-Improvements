@@ -14,7 +14,7 @@ import { SignupRequest } from '../model/signup-request';
 })
 export class RegisterComponent {
   constructor(
-    public fb: FormBuilder,
+    private fb: FormBuilder,
     private userService: UserService,
     private router: Router
   ) {}
@@ -33,7 +33,6 @@ export class RegisterComponent {
   onSubmit() {
     if (this.signupForm.valid && this.signupForm.value.password === this.signupForm.value.confirm) {
         console.log(JSON.stringify(this.signupForm.value));
-
         let signupRequest: SignupRequest = {
           username: this.signupForm.value.username,
           password: this.signupForm.value.password,
@@ -46,6 +45,7 @@ export class RegisterComponent {
             this.router.navigate(['/']);
           },
           (error) => {
+            //TODO: correcto control de errores si la peticion no es valida
             console.error(error);
           }
         );
