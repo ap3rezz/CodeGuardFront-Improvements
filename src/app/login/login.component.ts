@@ -34,12 +34,16 @@ export class LoginComponent {
       this.userService.loginUser(signupRequest).subscribe(
         response=>{
           console.log('Respuesta API: ', response);
-          //TODO: loclaStorage.save('AuthKey', response.authKey)
+          if (response.jwtKey) {
+            localStorage.setItem('JWT', response.jwtKey);
+            this.router.navigate(['/']);
+          }
+          //TODO: control de errores si no devuelve un jwtKey
           this.loginForm.reset();
-          this.router.navigate(['/']);
         },
         error =>{
-          //TODO: correcto control de errores si la peticion no es valida
+          //TODO: correcto control de errores si la peticion no es valida (si no se valida que el usuario
+          //y la contraseña son correctos)
           console.log(error);
         }
       );

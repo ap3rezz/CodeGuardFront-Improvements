@@ -16,4 +16,7 @@ export class HeaderComponent {
   toLogin(){
     this.router.navigate(['/login']);
   }
+
+  //TODO: MOSTRAR O DEJAR DE MOSTRAR EL BUSCADOR DE MAGOS Y EL VISOR DEL PERFIL DEPENDIENDO DE
+  //SI ESTA LOGEADO O NO
 }

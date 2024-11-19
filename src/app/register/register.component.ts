@@ -29,6 +29,7 @@ export class RegisterComponent {
   });
 
   confirmPassword: string = '';
+  registeredUsernameError:boolean = false;
 
   onSubmit() {
     if (this.signupForm.valid && this.signupForm.value.password === this.signupForm.value.confirm) {
@@ -45,7 +46,8 @@ export class RegisterComponent {
             this.router.navigate(['/']);
           },
           (error) => {
-            //TODO: correcto control de errores si la peticion no es valida
+            this.signupForm.reset();
+            this.registeredUsernameError = true;
             console.error(error);
           }
         );

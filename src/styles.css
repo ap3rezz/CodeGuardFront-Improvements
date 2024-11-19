@@ -20,6 +20,8 @@ body{
 }
 .login:hover{
     border: #6b5278 2px solid;
+    color: rgba(255, 215, 0, 1);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 140, 0, 0.7);
 }
 .register{
     font-family: 'Cinzel', serif;
@@ -28,6 +30,8 @@ body{
 }
 .register:hover{
     border: #5f6f90 2px solid;
+    color: rgba(255, 215, 0, 1);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 140, 0, 0.7);
 }
 
 @keyframes glow {
