@@ -1,4 +1,4 @@
-.home-text {
+.form-box {
     font-family: 'Cinzel', serif;
     color: #c9c9c9;
     background-color: #312339;
@@ -18,9 +18,7 @@
     }
 }
 
-p {
-    font-size: 1.5em;
-    line-height: 1.5;
+h1 {
     color: #aeaeae;
     text-shadow: 0 0 10px rgba(123, 104, 238, 0.5), 0 0 20px rgba(72, 61, 139, 0.4); 
     animation: glow 2s infinite alternate;
@@ -33,4 +31,13 @@ p {
     100% {
         text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 140, 0, 0.7); 
     }
+}
+
+.register{
+    font-family: 'Cinzel', serif;
+    border: #8fa8db 2px solid;
+    color: #aeaeae;
+}
+.register:hover{
+    border: #5f6f90 2px solid;
 }

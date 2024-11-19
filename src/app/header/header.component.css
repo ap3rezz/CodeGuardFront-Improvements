@@ -1,94 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Cormorant+Garamond&display=swap');
 header{
     font-family: 'Cinzel', serif;
-    float: left;
-    width: 99.75%;
-    height: 5vi;
     background-color: #312339;
-
     border-radius: 5px;
     border: #54405E 2.5px solid;
-
 }
-
-.logosection{
-    margin-left: 2%;
-    margin-top: 1.6%;
-    width: 17%;
-    float: left;
-}
-
-.searchspellssection{
-    width: 69%;
-    height: 100%;
-    margin-top: 0.5%;
-    float: left;
-}
-
-.logsection{
-    margin-top: 0.26%;
-    margin-right: 2%;
-    margin-top: 0.7%;
-    width: 10%;
-    height: 100%;
-    float: left;
-    
-}
-
-
-
-button{
-    background-color: #31233900;
-    color: #c9c9c9;
-    width: 15%;
-    border-radius: 7px;
-    height: 80%;
-
-}
-
-
-
-
-
 .logo{
-    margin-top: -2.5%;
     color: white;
-    float: left;
     font-size: xx-large;
     font-weight: bold;
 }
-
-.searchspells{
-    float: left;
-    margin-top: 2%;
-    text-decoration: none;
-    color: #aeaeae;
-}
-
 .searchspells:hover{
     color: #dedede;
 }
-
+.searchspells{
+    text-decoration: none;
+    color: #aeaeae;
+}
 .login{
     font-family: 'Cinzel', serif;
-    width: 45%;
-    float: left;
-    height: 70%;
     border: #c394da 2px solid;
+    color: #aeaeae;
 }
-
 .login:hover{
     border: #6b5278 2px solid;
 }
-
 .register{
     font-family: 'Cinzel', serif;
-    height: 70%;
-    width: 50%;
-    float: right;
     border: #8fa8db 2px solid;
+    color: #aeaeae;
 }
-
 .register:hover{
     border: #5f6f90 2px solid;
+}
+a{
+    all: unset; 
+    display: inline; /* o el valor de display que necesites */
+    cursor: pointer;
 }
