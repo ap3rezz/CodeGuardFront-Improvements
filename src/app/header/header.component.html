@@ -6,20 +6,31 @@
                 <li class="me-4 ms-2">
                     <a href="#" class="searchspells">Learn Spells</a>
                 </li>
-                <li  class="me-4">
-                    <a href="#" class="searchspells">Create Spells</a>
-                </li>
-                <li>
-                    <a href="#" class="searchspells">Arcane Workshop</a>
-                </li>
+                @if(isCreator == "true"){
+                    <li  class="me-4">
+                        <a href="#" class="searchspells">Create Spells</a>
+                    </li>
+                }
+                @if(isTester == "true"){
+                    <li>
+                        <a href="#" class="searchspells">Arcane Workshop</a>
+                    </li>
+                }
             </ul>
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" placeholder="Search Wizards..." class="form-control form-control-dark">
-            </form>
-            <div class="text-end">
-                <button type="button" class="btn login me-2" (click)="toLogin()">Log in</button>
-                <button type="button" class="btn register" (click)="toRegister()">Register</button>
-            </div>
+            @if(loggedUser){
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <input type="search" placeholder="Search Wizards..." class="form-control form-control-dark">
+                </form>
+                <div class="text-end">
+                    <span class="searchspells me-1"><a>{{loggedUsername}}</a></span>
+                    <div class="btn register" (click)="logout()">O/</div>
+                </div>
+            }@else{
+                <div class="text-end">
+                    <button type="button" class="btn login me-2" (click)="toLogin()">Log in</button>
+                    <button type="button" class="btn register" (click)="toRegister()">Register</button>
+                </div>
+            }
         </div>
     </div>
 </header>

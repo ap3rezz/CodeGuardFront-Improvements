@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SignupRequest } from '../model/signup-request';
-import { LoginResponse } from '../model/login-response';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +20,14 @@ export class UserService {
     return this.httpClient.post(this.apiURL + '/register', JSON.stringify(SignupRequest), this.httpOptions)
   }
 
-  loginUser(loginRequest:SignupRequest):Observable<LoginResponse>{
-    return this.httpClient.post<LoginResponse>(this.apiURL + '/login', JSON.stringify(loginRequest), this.httpOptions);
+  loginUser(loginRequest:SignupRequest):Observable<any>{
+    return this.httpClient.post<any>(this.apiURL + '/login', JSON.stringify(loginRequest), {headers: new HttpHeaders({'Content-Type':'application/json'}), observe: 'response'});
+  }
+
+  //TODO: cambiar lo de abajo para que funcione con el backend cuando el backend este arreglado
+  getUser(username:string):Observable<any>{
+    let i:string = localStorage.getItem('JWT')||"";
+    return this.httpClient.get(`${this.apiURL}/user/${username}`, {headers: new HttpHeaders({'Authorization':i})});
   }
 
   /*
@@ -30,10 +35,9 @@ export class UserService {
     return this.httpClient.post(`${this.apiURL}admin/delete`, username, 
     {headers: this.createAuthorizationHeader()});
   }
-    */
-  
+  */
 
-  //TODO: cuando se necesite el token para realizar una solicitud se pone este metodo como tercer campo de la solicitud
+  //TODO: cuando se necesite el token para realizar una solicitud se pone este metodo como tercer campo de la solicitud (por ahora no se usa)
   private createAuthorizationHeader() {
     const jwtToken = localStorage.getItem('JWT');
     if (jwtToken) {
