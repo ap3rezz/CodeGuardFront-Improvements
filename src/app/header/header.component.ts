@@ -10,30 +10,21 @@ import { AuthService } from '../service/auth.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit{
-  constructor(private router:Router,
-    private authService: AuthService
-  ){}
+
+  constructor(private authService: AuthService){}
 
   ngOnInit(): void {
     this.authService.isLoggedIn$.subscribe(
-      a=>{if(a)this.update()}
+      a=>{if(a)this.updateHeader()}
     );
-  }
-
-  toRegister(){
-    this.router.navigate(['/signup']);
-  }
-  toLogin(){
-    this.router.navigate(['/login']);
   }
 
   loggedUsername = localStorage.getItem("loggedUsername");
   loggedUser = localStorage.getItem("JWT");
-  //TODO: los dos campos de abajo cuando se actualizan no hace que se actualice la lista
   isTester = localStorage.getItem("tester");
   isCreator = localStorage.getItem("creator");
 
-  update(){
+  updateHeader(){
     this.loggedUsername = localStorage.getItem("loggedUsername");
     this.loggedUser = localStorage.getItem("JWT");
     this.isTester = localStorage.getItem("tester");
@@ -41,11 +32,7 @@ export class HeaderComponent implements OnInit{
   }
 
   logout(){
-    localStorage.removeItem("JWT");
-    localStorage.removeItem("admin");
-    localStorage.removeItem("loggedUsername");
-    localStorage.removeItem("tester");
-    localStorage.removeItem("creator");
-    this.update();
+    localStorage.clear();
+    this.updateHeader();
   }
 }

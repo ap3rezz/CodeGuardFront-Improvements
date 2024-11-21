@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
 import { Router } from '@angular/router';
-import { SignupRequest } from '../model/signup-request';
+import { UserRequest } from '../model/user-request';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -26,47 +26,47 @@ export class LoginComponent {
     password: ['', Validators.required],
   });
 
+  invalidCredentials:boolean = false;
+
   onSubmit(){
     if (this.loginForm.valid){
-      let signupRequest: SignupRequest = {
+      let signupRequest: UserRequest = {
         username: this.loginForm.value.username,
         password: this.loginForm.value.password,
       };
 
       this.userService.loginUser(signupRequest).subscribe(
         response=>{
-          console.log('Respuesta API: ', response.body);
-          console.log('Respuesta API: ', response.headers.get('Authorization'));
+          console.log(`Cuerpo de la respuesta API: ${response.body}`);
+          console.log(`Cabezera Authorization: ${response.headers.get('Authorization')}`);
           if (response.headers.get('Authorization')) {
             localStorage.setItem('JWT', response.headers.get('Authorization'));
             localStorage.setItem('loggedUsername', response.body.username);
-            //TODO:corregir todo esto para ponerlo bonito cuando este el back bien
             this.userService.getUser(response.body.username).subscribe(
               response=>{
                 console.log(response)
                 localStorage.setItem('tester', response.tester.toString());
                 localStorage.setItem('creator', response.creator.toString());
-                this.authService.setLoggedIn(true); //Se establece que esta logeado para actualizar la parte de la izquierda del header
+                //Se establece que esta logeado para actualizar la parte de la izquierda del header
+                this.authService.setLoggedIn(true); 
               },
-              error=>{console.log(error)}
+              error=>{
+                console.error(`Error trying to search the user: ${error}`)
+              }
             )
             localStorage.setItem('admin', response.body.admin.toString());
-            this.authService.setLoggedIn(true);//Se establece que esta logeado para actualizar la parte de la derecha del header
+            //Se establece que esta logeado para actualizar la parte de la derecha del header
+            this.authService.setLoggedIn(true);
+            this.loginForm.reset();
             this.router.navigate(['/']);
-          }
-          //TODO: control de errores si no devuelve un jwtKey
-          //TODO: recibir y almacenar si el usuario es tester o creator
-          //TODO: cambiar en el header para que solo salga una pestaña a no ser que tengas los roles de arriba
-          //TODO: cambiar el header para cuando NO estes logeado salga solo register y login y cuando estes logeado salga search wizards y username
+          } //Aqui no hay else porque siempre recive algo por Authorization si no esta correcto va al canal de errores
         },
         error =>{
-          //TODO: correcto control de errores si la peticion no es valida (si no se valida que el usuario
-          //y la contraseña son correctos)
-          console.log(error);
+          this.invalidCredentials=true;
+          this.loginForm.reset();
+          console.error(`Error: ${error}`);
         }
       );
-
     }
   }
-
 }

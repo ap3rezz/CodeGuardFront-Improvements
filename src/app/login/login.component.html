@@ -32,13 +32,12 @@
             </div>
           </div>
           <div class="mb-3">
-            <button
-              type="submit"
-              class="btn login"
-              [disabled]="!loginForm.valid"
-            >
-              Log In
-            </button>
+            <button type="submit" class="btn login" [disabled]="!loginForm.valid">Log In</button>
+          </div>
+          <div class="error-feedback">
+            @if (invalidCredentials) {
+            <span>The username or password are incorrect</span>
+            }
           </div>
         </form>
       </div>
