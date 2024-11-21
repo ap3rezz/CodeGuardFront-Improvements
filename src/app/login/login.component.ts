@@ -54,6 +54,9 @@ export class LoginComponent {
             this.authService.setLoggedIn(true);//Se establece que esta logeado para actualizar la parte de la derecha del header
             this.router.navigate(['/']);
           }
+          else{
+            console.log("Canal de Autenthification: ");
+          }
           //TODO: control de errores si no devuelve un jwtKey
           //TODO: recibir y almacenar si el usuario es tester o creator
           //TODO: cambiar en el header para que solo salga una pestaña a no ser que tengas los roles de arriba
@@ -62,6 +65,7 @@ export class LoginComponent {
         error =>{
           //TODO: correcto control de errores si la peticion no es valida (si no se valida que el usuario
           //y la contraseña son correctos)
+          console.log("Canal de errores:");
           console.log(error);
         }
       );

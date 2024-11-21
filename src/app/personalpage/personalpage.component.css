@@ -1,0 +1,55 @@
+
+.container {
+    font-family: 'Cormorant Garamond', serif;
+    color: #aeaeae;
+}
+
+.delete {
+    box-shadow: 0 0 10px rgb(219, 112, 112);
+    border: 2px solid #dc3545; 
+    background-color: #dc3545; 
+    color: #ffffff; 
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.delete:hover {
+    animation: blink 5s infinite;
+    transform: scale(1.05);
+    box-shadow: 0 0 13px rgba(220, 53, 69, 0.8); 
+}
+
+
+.user-card {
+    border: 2px solid #6b5278;
+    background-color: #271630;
+    box-shadow: 0 0 20px rgba(147, 112, 219, 0.8);
+    color: #aeaeae;
+    
+    
+}
+
+.card-header {
+    background-color: #6b5278;
+}
+
+h5 {
+    font-family: 'Cinzel', serif;
+}
+
+.form-group label {
+    color: #c394da;
+}
+
+.form-control {
+    background-color: #271630;
+    color: #aeaeae;
+}
+
+@keyframes blink {
+    0%, 50%, 100% {
+        opacity: 1;
+    }
+    25%, 75% {
+        opacity: 0.5;
+    }
+}
