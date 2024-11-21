@@ -15,7 +15,7 @@ export class UserService {
     headers: new HttpHeaders({'Content-Type':'application/json'}),
   }
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   //TODO: mirar si alguna de estas solicitudes que reciben "any" requiere un model para almacenar la respuesta
   registerUser(signupRequest:UserRequest):Observable<any>{
@@ -30,6 +30,11 @@ export class UserService {
   getUser(username:string):Observable<UserInfo>{
     let token:string = localStorage.getItem('JWT')||"";
     return this.httpClient.get<UserInfo>(`${this.apiURL}/user/${username}`, {headers: new HttpHeaders({'Authorization':token})});
+  }
+
+  deleteLoggedUser():Observable<any>{
+    let token: string = localStorage.getItem('JWT') || "";
+    return this.httpClient.delete(`${this.apiURL}/user/delete`, { headers: new HttpHeaders({ 'Authorization': token }) });
   }
 
 }
