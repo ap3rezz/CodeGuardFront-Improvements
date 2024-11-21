@@ -49,6 +49,11 @@
               Signup
             </button>
           </div>
+          <div class="error-feedback">
+            @if (registeredUsernameError) {
+            <span>This username exists in the magic realm</span>
+            }
+          </div>
         </form>
       </div>
     </div>
