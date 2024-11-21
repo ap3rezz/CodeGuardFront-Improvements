@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../service/user.service';
 import { Router } from '@angular/router';
-import { SignupRequest } from '../model/signup-request';
+import { UserRequest } from '../model/user-request';
 
 @Component({
   selector: 'app-register',
@@ -20,10 +20,7 @@ export class RegisterComponent {
   ) {}
 
   signupForm = this.fb.group({
-    username: [
-      '',
-      [Validators.required, Validators.pattern(/^[a-zA-Z]{3,}\w*$/)],
-    ],
+    username: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{3,}\w*$/)],],
     password: ['', Validators.required],
     confirm: ['', Validators.required],
   });
@@ -33,22 +30,22 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.signupForm.valid && this.signupForm.value.password === this.signupForm.value.confirm) {
-        console.log(JSON.stringify(this.signupForm.value));
-        let signupRequest: SignupRequest = {
+        console.log(`Sending data: ${JSON.stringify(this.signupForm.value)}`);
+        let signupRequest: UserRequest = {
           username: this.signupForm.value.username,
           password: this.signupForm.value.password,
         };
 
         this.userService.registerUser(signupRequest).subscribe(
-          (response) => {
-            console.log('Respuesta API: ', response);
+          response => {
+            console.log(`Api response ${response}`);
             this.signupForm.reset();
             this.router.navigate(['/']);
           },
-          (error) => {
+          error => {
+            console.error(`Error: ${error}`);
             this.signupForm.reset();
             this.registeredUsernameError = true;
-            console.error(error);
           }
         );
     }

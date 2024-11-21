@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SignupRequest } from '../model/signup-request';
+import { UserRequest } from '../model/user-request';
+import { UserInfo } from '../model/user-info';
 
 @Injectable({
   providedIn: 'root'
@@ -10,44 +11,30 @@ export class UserService {
 
   private apiURL = "http://localhost:8080/code-guard"
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  private httpOptionsJson = {
+    headers: new HttpHeaders({'Content-Type':'application/json'}),
   }
 
   constructor(private httpClient: HttpClient) { }
 
-  registerUser(SignupRequest: SignupRequest): Observable<any> {
-    return this.httpClient.post(this.apiURL + '/register', JSON.stringify(SignupRequest), this.httpOptions)
+  //TODO: mirar si alguna de estas solicitudes que reciben "any" requiere un model para almacenar la respuesta
+  registerUser(signupRequest:UserRequest):Observable<any>{
+    return this.httpClient.post(`${this.apiURL}/register`, JSON.stringify(signupRequest), this.httpOptionsJson)
   }
 
-  loginUser(loginRequest: SignupRequest): Observable<any> {
-    return this.httpClient.post<any>(this.apiURL + '/login', JSON.stringify(loginRequest), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }), observe: 'response' });
+  loginUser(loginRequest:UserRequest):Observable<any>{
+    //Observe 'response' sirve para que en vez de recibir el cuerpo de la petición recibe toda la respuesta para extraer datos de la cabecera
+    return this.httpClient.post<any>(`${this.apiURL}/login`, JSON.stringify(loginRequest), {headers: new HttpHeaders({'Content-Type':'application/json'}), observe: 'response'});
   }
 
-  //TODO: cambiar lo de abajo para que funcione con el backend cuando el backend este arreglado
-  getUser(username: string): Observable<any> {
-    let token: string = localStorage.getItem('JWT') || "";
-    return this.httpClient.get(`${this.apiURL}/user/${username}`, { headers: new HttpHeaders({ 'Authorization': token }) });
+  getUser(username:string):Observable<UserInfo>{
+    let token:string = localStorage.getItem('JWT')||"";
+    return this.httpClient.get<UserInfo>(`${this.apiURL}/user/${username}`, {headers: new HttpHeaders({'Authorization':token})});
   }
 
-  
   deleteLoggedUser():Observable<any>{
     let token: string = localStorage.getItem('JWT') || "";
     return this.httpClient.delete(`${this.apiURL}/user/delete`, { headers: new HttpHeaders({ 'Authorization': token }) });
-  }
-  
-
-  //TODO: cuando se necesite el token para realizar una solicitud se pone este metodo como tercer campo de la solicitud (por ahora no se usa)
-  private createAuthorizationHeader() {
-    const jwtToken = localStorage.getItem('JWT');
-    if (jwtToken) {
-      let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwtToken);
-      headers.set('Content-Type', 'application/json');
-      return headers;
-    } else {
-      console.log("JWT token not found in the Local Storage");
-    }
-    return null;
   }
 
 }
