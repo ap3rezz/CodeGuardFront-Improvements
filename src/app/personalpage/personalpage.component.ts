@@ -3,63 +3,80 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { FormsModule } from '@angular/forms';
 
-import { Router} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../service/auth.service';
-import { UserResponse } from '../model/user-info';
 import { CommonModule } from '@angular/common';
+import { UserInfo } from '../model/user-info';
+import { ExerciseService } from '../service/exercise.service';
+import { ExerciseResponse } from '../model/exercise-response';
 
 @Component({
   selector: 'app-personalpage',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './personalpage.component.html',
-  styleUrl: './personalpage.component.css'
+  styleUrls: ['./personalpage.component.css']
 })
 export class PersonalpageComponent implements OnInit {
-  user: UserResponse = {
+  user: UserInfo = {
     username: '',
     tester: false,
     creator: false,
-    problems:[]
+    exercises: []
   };
-  
-  constructor(private userservice: UserService, private router: Router, private authservice: AuthService) {}
-  
-    deleteThisUser():void{
+
+  exercisenames: ExerciseResponse[] = [];
+
+  constructor(
+    private userservice: UserService,
+    private router: Router,
+    private authservice: AuthService,
+    private exerciseservice: ExerciseService
+  ) {}
+
+  deleteThisUser(): void {
     this.userservice.deleteLoggedUser().subscribe({
       next: (response) => {
         localStorage.clear();
-        console.log("Deleted user :", response);
-        //TODO: Cambiar esta cosa cutre por un setLoggedOut
+        console.log("Deleted user:", response);
         this.authservice.setLoggedIn(true);
         this.router.navigate(['/']);
       },
-      error: (error)=>{
-        console.error("Can't delete the user: ", error);
+      error: (error) => {
+        console.error("Can't delete the user:", error);
       }
-    })
+    });
   }
-  
-  ngOnInit(): void {
 
+  ngOnInit(): void {
     const loggedUsername = localStorage.getItem('loggedUsername');
-    if(loggedUsername){
+    if (loggedUsername) {
       this.userservice.getUser(loggedUsername).subscribe({
         next: (data) => {
           this.user.username = data.username;
           this.user.tester = data.tester;
           this.user.creator = data.creator;
-          this.user.problems = data.problems;
+          this.user.exercises = data.exercises;
+
+          for (let index = 0; index < this.user.exercises.length; index++) {
+            this.exerciseservice.getProblem(this.user.exercises[index]).subscribe({
+              next: (data) => {
+                this.exercisenames.push(data);
+                console.log('Datos del problema:', data);
+              },
+              error: (error) => {
+                console.error('Error buscar el problema:', error);
+              }
+            });
+          }
           console.log('Datos de usuario:', data);
         },
         error: (error) => {
           console.error('Error buscar el usuario:', error);
-        },
+        }
       });
-    }
-    else{
+    } else {
       console.error('No se encontró el nombre de usuario en el localstorage');
     }
-
   }
 }

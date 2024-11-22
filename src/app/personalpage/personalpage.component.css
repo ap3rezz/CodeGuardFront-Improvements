@@ -45,6 +45,7 @@ h5 {
     background-color: #271630;
     color: #aeaeae;
     border: 1px solid #6b5278;
+    cursor: pointer;
 }
 
 @keyframes blink {

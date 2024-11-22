@@ -26,9 +26,17 @@
           <div class="form-group mt-3">
             <label class="font-weight-bold">Problemas:</label>
             <ul class="list-group">
-              <li *ngFor="let problem of user.problems" class="list-group-item">
-                {{ problem }}
-              </li>
+              @if (user.exercises.length == 0) {
+                <p>Aprende hechizos</p>
+              }
+              @else {
+                @for (exercise of exercisenames;track exercisenames) {
+
+                  <li [routerLink]="['/problem', exercise.id]" class="list-group-item">
+                    {{ exercise.title }}
+                  </li>
+                }
+              }
             </ul>
           </div>
         </div>
