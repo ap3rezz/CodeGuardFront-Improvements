@@ -1,6 +1,6 @@
-export interface UserResponse {
+export interface UserInfo {
     username:string;
     tester:boolean;
     creator:boolean;   
-    problems:string[]; 
+    exercises:string[]; 
 }
