@@ -14,5 +14,5 @@ export const routes: Routes = [
     {path: 'error',component: ErrorComponent},
     {path: 'exerciselist',component: ExerciseListComponent},
     {path: 'personalpage', component: PersonalpageComponent},
-    { path: 'problem/:id', component: ExercisePageComponent },
+    {path: 'problem/:id', component: ExercisePageComponent },
 ]
