@@ -1,8 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Cormorant+Garamond&display=swap');
 
-.container {
-    font-family: 'Cormorant Garamond', serif;
+.btn-solutions {
+    font-family: 'Cinzel', serif;
+    border: 2px solid #6b5278;
+    background-color: #1C0C25;
     color: #aeaeae;
+    padding: 8px 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-solutions:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(147, 112, 219, 0.8);
+    border-color: #c394da;
+    color: #c394da;
 }
 
 .problem-card {
@@ -21,21 +32,23 @@
 .card-title {
     font-family: 'Cinzel', serif;
     color: #9EBCF6;
+    font-size: 1.5rem; 
 }
 
 .card-text {
+    text-align: left;
     color: #d6d6d6;
     font-size: large;
 }
 
 .stack-trace {
-    height: 300px; /* Ajusta la altura del stack trace */
-    overflow-y: auto; /* Añade scroll vertical si es necesario */
+    height: 300px; 
+    overflow-y: auto; 
 }
 
 textarea.form-control {
     background-color: #1C0C25;
-    color: #ffffff; /* Cambia el color del texto a blanco */
+    color: #ffffff; 
     border: 2px solid #6b5278;
 }
 
@@ -55,11 +68,3 @@ textarea.form-control:focus {
     color: #1C0C25;
 }
 
-:root {
-    background-color: #271630;
-    color: #9f9f9f;
-}
-
-body {
-    background-color: #271630;
-}

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ExerciseService } from '../service/exercise.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'; // Importa FormsModule
+import { ExerciseResponse } from '../model/exercise-response';
 
 @Component({
   selector: 'app-exercisepage',
   standalone: true,
-  imports: [FormsModule], // Añade FormsModule aquí
+  imports: [FormsModule, RouterLink], // Añade FormsModule aquí
   templateUrl: './exercisepage.component.html',
   styleUrls: ['./exercisepage.component.css']
 })
@@ -19,6 +20,14 @@ export class ExercisePageComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router) {}
 
+  problem: ExerciseResponse = {
+    id:0,
+    title:"",
+    description:"",
+    tester:"",
+    creator:"",
+  };
+
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -26,6 +35,7 @@ export class ExercisePageComponent implements OnInit {
         next: (data) => {
           this.problemtitle = data.title;
           this.problemdescription = data.description;
+          this.problem = data;
           console.log('Datos del problema:', data);
         },
         error: (error) => {

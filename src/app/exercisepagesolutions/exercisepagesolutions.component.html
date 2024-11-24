@@ -1,0 +1,6 @@
+<div class="container mt-4">
+  <h2>Soluciones para el problema {{ problems.exercise_id }}</h2>
+  <div *ngFor="let solution of problems.solutions | keyvalue">
+    <p><strong>{{ solution.key }}:</strong> {{ solution.value }}</p>
+  </div>
+</div>

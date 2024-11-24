@@ -1,19 +1,30 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
-    <div class="col-12 col-md-8 mb-4 d-flex justify-content-center">
+    <div class="col-12 d-flex justify-content-center mb-2">
       <div class="card problem-card text-center title-card">
         <div class="card-body">
           <h5 class="card-title">{{ problemtitle }}</h5>
         </div>
       </div>
     </div>
-    <div class="col-12">
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 d-flex justify-content-end mb-2">
+      <button [routerLink]="['/problem', problem.id, 'solutions']" class="btn btn-solutions">
+        Solutions
+      </button>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 mb-4">
       <div class="card problem-card">
         <div class="card-body">
           <p class="card-text">{{ problemdescription }}</p>
         </div>
       </div>
     </div>
+  </div>
+  <div class="row justify-content-center">
     <div class="col-12 d-flex justify-content-between mt-4">
       <div class="col-4">
         <div class="card problem-card text-center">
