@@ -1,6 +1,34 @@
 <div class="container mt-4">
-  <h2>Soluciones para el problema {{ problems.exercise_id }}</h2>
-  <div *ngFor="let solution of problems.solutions | keyvalue">
-    <p><strong>{{ solution.key }}:</strong> {{ solution.value }}</p>
+  <div class="row justify-content-center">
+    <div class="col-12 d-flex justify-content-center mb-2">
+      <div class="card problem-card text-center title-card">
+        <div class="card-body">
+          <h5 class="card-title">{{ title }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 d-flex justify-content-end mb-2">
+      <button [routerLink]="['/problem/', id]" class="btn btn-solutions">
+        Return
+      </button>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 mb-4">
+      <div *ngFor="let solution of problems.solutions | keyvalue" class="card problem-card mb-3">
+        <div class="card-body cbs">
+         
+            
+              <p class="card-text">{{ solution.key }}</p>
+              <div class="value-box">
+                <p class="card-text">{{ solution.value }}</p>
+              </div>
+           
+          
+        </div>
+      </div>
+    </div>
   </div>
 </div>

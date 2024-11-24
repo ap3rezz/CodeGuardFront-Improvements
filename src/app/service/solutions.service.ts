@@ -8,7 +8,7 @@ import { SolutionsResponse } from '../model/solutions-response';
 })
 export class SolutionsService {
 
-  private apiUrl = 'http://localhost:8080/code-guard/exercises';
+  private apiUrl = 'http://localhost:8080/code-guard/exercise';
 
   constructor(private http: HttpClient) { }
 
