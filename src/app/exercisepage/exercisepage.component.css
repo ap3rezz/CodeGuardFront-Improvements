@@ -42,7 +42,7 @@
 }
 
 .stack-trace {
-    height: 300px; 
+    height: 500px; 
     overflow-y: auto; 
 }
 
@@ -67,4 +67,3 @@ textarea.form-control:focus {
     background-color: #c394da;
     color: #1C0C25;
 }
-

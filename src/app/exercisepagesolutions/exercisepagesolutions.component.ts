@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SolutionsService } from '../service/solutions.service';
 import { CommonModule } from '@angular/common';
-import { SolutionsResponse } from '../model/solutions-response';
 import { ExerciseService } from '../service/exercise.service';
+import { SolutionObjResponse } from '../model/solution-obj-response';
 
 @Component({
   selector: 'app-exercisepagesolutions',
@@ -16,11 +16,9 @@ export class ExercisePageSolutionsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private solutionService: SolutionsService, private exerciseService: ExerciseService) {}
 
-  problems: SolutionsResponse = {
-    solutions: {},
-  };
-  id:string="";
-  title:string="";
+  problems: SolutionObjResponse[] = [];
+  id: string = "";
+  title: string = "";
 
   ngOnInit(): void {
     const routeId = this.route.snapshot.paramMap.get('id');
@@ -28,15 +26,18 @@ export class ExercisePageSolutionsComponent implements OnInit {
       this.id = routeId;
       this.solutionService.getSolutions(routeId).subscribe({
         next: (data) => {
-          this.problems = data;
-          console.log('Soluciones del problema:', data);
+          data.forEach(element=>{
+            this.problems.push(element);
+          })
+          console.log('Soluciones del problema:', this.problems);
         },
         error: (error) => {
           console.error('Error al obtener las soluciones del problema:', error);
         }
       });
+      
       this.exerciseService.getProblem(routeId).subscribe({
-        next: (data)=>{
+        next: (data) => {
           this.title = data.title;
           console.log('Datos del problema:', data);
         },
@@ -45,8 +46,7 @@ export class ExercisePageSolutionsComponent implements OnInit {
         }
       });
     }
-
   }
+
+ 
 }
-
-

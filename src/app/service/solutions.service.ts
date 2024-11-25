@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SolutionObjResponse } from '../model/solution-obj-response';
 import { Observable } from 'rxjs';
-import { SolutionsResponse } from '../model/solutions-response';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,12 @@ export class SolutionsService {
 
   constructor(private http: HttpClient) { }
 
-  getSolutions(exerciseId: string): Observable<SolutionsResponse> {
+  getSolutions(exerciseId: string): Observable<SolutionObjResponse[]> {
     let token: string = localStorage.getItem('JWT') || "";
-    return this.http.get<SolutionsResponse>(`${this.apiUrl}/${exerciseId}/allSolutions`, { headers: new HttpHeaders({ 'Authorization': token }) });
+    return this.http.get<SolutionObjResponse[]>(`${this.apiUrl}/${exerciseId}/allSolutions`, { headers: new HttpHeaders({ 'Authorization': token }) });
+  }
+  getSolution(userId:string ,exerciseId: string): Observable<SolutionObjResponse> {
+    let token: string = localStorage.getItem('JWT') || "";
+    return this.http.get<SolutionObjResponse>(`${this.apiUrl}/${exerciseId}/${userId}`, { headers: new HttpHeaders({ 'Authorization': token }) });
   }
 }

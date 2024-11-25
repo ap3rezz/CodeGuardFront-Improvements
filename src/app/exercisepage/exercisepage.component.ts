@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ExerciseService } from '../service/exercise.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'; // Importa FormsModule
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { ExerciseResponse } from '../model/exercise-response';
-import { SolutionsResponse } from '../model/solutions-response';
 import { SolutionsService } from '../service/solutions.service';
+import { CompilerRequest } from '../model/compiler-request';
+import { CompilerService } from '../service/compiler.service';
 
 @Component({
   selector: 'app-exercisepage',
   standalone: true,
-  imports: [FormsModule, RouterLink], // Añade FormsModule aquí
+  imports: [FormsModule, RouterLink],
   templateUrl: './exercisepage.component.html',
   styleUrls: ['./exercisepage.component.css']
 })
@@ -19,23 +20,27 @@ export class ExercisePageComponent implements OnInit {
   problemdescription: string = "";
   stackTrace: string = "";
   userCode: string = "";
+  solver: boolean = false;
 
-  constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private solutionService: SolutionsService) {}
+  constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private solutionService: SolutionsService, private compilerService: CompilerService) { }
 
   problem: ExerciseResponse = {
-    id:0,
-    title:"",
-    description:"",
-    tester:"",
-    creator:"",
+    id: 0,
+    title: "",
+    description: "",
+    tester: "",
+    creator: "",
   };
 
-
-  solver:boolean = false;
+  solution: CompilerRequest = {
+    exerciseId: "",
+    exerciseSolution: "",
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
+    const loggedUsername = localStorage.getItem("loggedUsername");
+    if (id && loggedUsername) {
       this.exerciseService.getProblem(id).subscribe({
         next: (data) => {
           this.problemtitle = data.title;
@@ -47,13 +52,11 @@ export class ExercisePageComponent implements OnInit {
           console.error('Error al obtener el problema:', error);
         }
       });
-
-      this.solutionService.getSolutions(id).subscribe({
+  
+      this.solutionService.getSolution(loggedUsername, id).subscribe({
         next: (data) => {
-          for (let key in data.solutions) { 
-            if (key ===localStorage.getItem("loggedUsername")) { 
-              this.solver=true;
-            } 
+          if (data.username == loggedUsername) {
+            this.solver = true;
           }
           console.log('Soluciones del problema:', data);
         },
@@ -62,29 +65,28 @@ export class ExercisePageComponent implements OnInit {
         }
       });
     }
-
-
   }
+  
 
   onSubmit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    const token = localStorage.getItem('JWT');
-    if (id && token) {
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      const body = {
-        problemId: id,
-        solution: this.userCode
-      };
-      this.http.post('/compiler/compile', body, { headers }).subscribe({
-        next: (response: any) => {
-          if (response.errors) {
-            this.stackTrace = response.errors;
+    this.stackTrace = "";
+    if (id) {
+      this.solution.exerciseId = id;
+      this.solution.exerciseSolution = this.userCode;
+      this.compilerService.postSolution(this.solution).subscribe({
+        next: (data) => {
+          if (data.exerciseCompilationCode != 0) {
+            this.stackTrace = data.exerciseCompilationMessage;
           } else {
-            this.router.navigate(['/']);
+            if (data.exerciseCompilationCode == 0) {
+              this.stackTrace += data.executionMessage;
+            }
           }
+          console.log("Error al compilar el codigo: ", data);
         },
         error: (error) => {
-          console.error('Error al compilar el código:', error);
+          console.error("Error al compilar el código:", error);
         }
       });
     }

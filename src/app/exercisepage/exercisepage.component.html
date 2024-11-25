@@ -28,7 +28,7 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-12 d-flex justify-content-between mt-4">
-      <div class="col-4">
+      <div class="col-5"> 
         <div class="card problem-card text-center">
           <div class="card-body">
             <h6 class="card-title">Stack Trace</h6>
@@ -39,14 +39,14 @@
           <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
         </div>
       </div>
-      <div class="col-8">
+      <div class="col-7"> 
         <div class="card problem-card text-center">
           <div class="card-body">
             <h6 class="card-title">Código</h6>
-            <textarea class="form-control" [(ngModel)]="userCode" rows="25"></textarea>
+            <textarea id="codeEditor" class="form-control" [(ngModel)]="userCode" rows="20"></textarea> 
           </div>
         </div>
-      </div>
+      </div>      
     </div>
   </div>
 </div>

@@ -17,18 +17,15 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-12 mb-4">
-      <div *ngFor="let solution of problems.solutions | keyvalue" class="card problem-card mb-3">
-        <div class="card-body cbs">
-         
-            
-              <p class="card-text">{{ solution.key }}</p>
-              <div class="value-box">
-                <p class="card-text">{{ solution.value }}</p>
-              </div>
-           
-          
+      <div class="card problem-card mb-3">
+      @for (solution of problems; track problems) {
+        <div class="card-body cbs">    
+          <p class="card-text">{{ solution.username }}</p>
+          <div class="value-box">
+            <p class="card-text">{{ solution.solution }}</p>
+          </div>
         </div>
-      </div>
+      }</div>
     </div>
   </div>
 </div>
