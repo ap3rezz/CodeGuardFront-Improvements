@@ -1,0 +1,45 @@
+
+.btn-solutions {
+    font-family: 'Cinzel', serif;
+    border: 2px solid #6b5278;
+    background-color: #1C0C25;
+    color: #aeaeae;
+    padding: 8px 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-solutions:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(147, 112, 219, 0.8);
+    border-color: #c394da;
+    color: #c394da;
+}
+
+.problem-card {
+    border: 2px solid #6b5278;
+    background-color: #1C0C25;
+    color: #aeaeae;
+}
+
+
+
+.card-title {
+    font-family: 'Cinzel', serif;
+    color: #9EBCF6;
+    font-size: 1.5rem; 
+}
+
+
+
+
+
+.value-box {
+    border: 2px solid #6b5278;
+    background-color: #1C0C25;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+
+
