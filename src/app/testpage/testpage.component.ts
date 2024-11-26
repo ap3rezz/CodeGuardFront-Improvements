@@ -7,13 +7,14 @@ import { ExerciseResponse } from '../model/exercise-response';
 import { CompilerRequest } from '../model/compiler-request';
 import { SolutionsService } from '../service/solutions.service';
 import { CompilerService } from '../service/compiler.service';
+import { CompilerTestRequest } from '../model/compiler-test-request';
 
 @Component({
   selector: 'app-testpage',
   standalone: true,
   imports: [FormsModule, RouterLink],
   templateUrl: './testpage.component.html',
-  styleUrl: './testpage.component.css'
+  styleUrls: ['./testpage.component.css']
 })
 export class TestPageComponent implements OnInit {
   problemtitle: string = "";
@@ -21,6 +22,7 @@ export class TestPageComponent implements OnInit {
   stackTrace: string = "";
   userCode: string = "";
   userTestsCode: string = "";
+  exercisePlaceHolder: string = ""; 
   solver: boolean = false;
 
   constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private solutionService: SolutionsService, private compilerService: CompilerService) { }
@@ -33,9 +35,11 @@ export class TestPageComponent implements OnInit {
     creator: "",
   };
 
-  solution: CompilerRequest = {
-    exerciseId: "",
+  solution: CompilerTestRequest = {
+    exerciseId: 0,
     exerciseSolution: "",
+    exerciseTests: "",
+    exercisePlaceHolder: "",
   }
 
   ngOnInit(): void {
@@ -67,15 +71,16 @@ export class TestPageComponent implements OnInit {
       });
     }
   }
-  
-  //TODO: Cambiar cuando este añadido el controler de subir tests
+
   onSubmit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.problem.id;
     this.stackTrace = "";
     if (id) {
       this.solution.exerciseId = id;
       this.solution.exerciseSolution = this.userCode;
-      this.compilerService.postSolution(this.solution).subscribe({
+      this.solution.exerciseTests = this.userTestsCode;
+      this.solution.exercisePlaceHolder = this.exercisePlaceHolder; 
+      this.compilerService.postTest(this.solution).subscribe({
         next: (data) => {
           if (data.exerciseCompilationCode != 0) {
             this.stackTrace = data.exerciseCompilationMessage;
