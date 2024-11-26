@@ -1,0 +1,78 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-12 mb-4">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control search-bar"
+            placeholder="Buscar problemas..."
+            [(ngModel)]="searchKeyword"
+            (input)="onSearch()"
+          />
+        </div>
+      </div>
+  
+      <div class="col-md-3 mb-4">
+        <div class="card filter-card">
+          <div class="card-header text-center text-light">
+            <h5>Filters</h5>
+          </div>
+          <div class="card-body">
+            <div class="form-check mb-2">
+              <input
+                type="radio"
+                class="form-check-input"
+                id="filterTitle"
+                name="searchType"
+                value="title"
+                [(ngModel)]="searchType"
+                (change)="onSearch()"
+                checked 
+              />
+              <label class="form-check-label text-light" for="filterTitle">Nombre del problema</label>
+            </div>
+            <div class="form-check mb-2">
+              <input
+                type="radio"
+                class="form-check-input"
+                id="filterCreator"
+                name="searchType"
+                value="creator"
+                [(ngModel)]="searchType"
+                (change)="onSearch()"
+              />
+              <label class="form-check-label text-light" for="filterCreator">Nombre del creator</label>
+            </div>
+            <div class="form-check">
+              <input
+                type="radio"
+                class="form-check-input"
+                id="filterOwn"
+                name="searchType"
+                value="own"
+                [(ngModel)]="searchType"
+                (change)="onSearch()"
+              />
+              <label class="form-check-label text-light" for="filterOwn">Problemas propios</label>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-9">
+        <div class="row">
+          @for (problem of filteredProblems;track problem.id) {
+            <div [routerLink]="['/test', problem.id]" class="problem-box col-12 col-md-6 col-lg-4 mb-4">
+              <div class="card problem-card">
+                <div class="card-body text-center">
+                  <h5 class="card-title text-light">{{ problem.title }}</h5>
+                  <p class="card-text text-light"><strong>Creator:</strong> {{ problem.creator }}</p>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -14,7 +14,7 @@ export class ExerciseService {
   getProblems(): Observable<ExerciseResponse[]> {
     let token: string = localStorage.getItem('JWT') || "";
 
-    return this.http.get<ExerciseResponse[]>(this.apiUrl+"allExercise", { headers: new HttpHeaders({ 'Authorization': token }) });
+    return this.http.get<ExerciseResponse[]>(this.apiUrl+"allExercises", { headers: new HttpHeaders({ 'Authorization': token }) });
   }
 
   getProblem(exerciseId:string): Observable<ExerciseResponse> {

@@ -37,4 +37,10 @@ export class UserService {
     return this.httpClient.delete(`${this.apiURL}/user/delete`, { headers: new HttpHeaders({ 'Authorization': token }) });
   }
 
+  deleteUser(username: string): Observable<any> {
+    let token: string = localStorage.getItem('JWT') || "";
+    return this.httpClient.delete(`${this.apiURL}/admin/delete?username=` + username, { headers: new HttpHeaders({ 'Authorization': token }) });
+  }
+  
+
 }

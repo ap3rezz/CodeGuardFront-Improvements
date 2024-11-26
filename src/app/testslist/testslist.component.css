@@ -1,0 +1,49 @@
+.search-bar {
+    font-family: 'Cormorant Garamond', serif;
+    border: 2px solid #6b5278; 
+    background-color: #271630;
+    color: #aeaeae;
+}
+
+.search-bar:focus {
+    color: rgba(255, 215, 0, 1);
+    border: 2px solid #c394da;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+input::placeholder {
+    color: #aeaeae; 
+}
+
+.filter-card {
+    border: 2px solid #6b5278;
+    background-color: #271630;
+    color: #aeaeae;
+}
+
+.problem-card {
+    border: 2px solid #6b5278;
+    background-color: #271630;
+    color: #aeaeae;
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.problem-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(147, 112, 219, 0.8);
+    border: 2px solid #c394da;
+}
+
+
+
+h5 {
+    font-family: 'Cinzel', serif;
+}
+
+.problem-box{
+    cursor: pointer;
+}
+
+.problem-card:hover{
+    border: #8fa8db 2px solid;
+}

@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService, private userService: UserService, private router: Router, private fb: FormBuilder) {}
   
   user = this.fb.group({
-    username: ['', Validators.required],
+    username: ['',[Validators.required, Validators.pattern(/^[a-zA-Z]{3,}\w*$/)],],
   });
 
   ngOnInit(): void {
