@@ -1,23 +1,55 @@
-header{
+header {
     font-family: 'Cinzel', serif;
     background-color: #312339;
     border-radius: 5px;
     border: #54405E 2.5px solid;
 }
-.logo{
+
+.logo {
     color: white;
     font-size: xx-large;
     font-weight: bold;
 }
-.searchspells:hover{
+
+.searchspells:hover {
     color: #dedede;
 }
-.searchspells{
+
+.searchspells {
     text-decoration: none;
     color: #aeaeae;
 }
-a{
+
+a {
     all: unset; 
-    display: inline; /* o el valor de display que necesites */
+    display: inline; 
     cursor: pointer;
+}
+
+.form-control {
+    background-color: #271630;
+    color: #ffffff;
+    border: 2px solid #6b5278;
+}
+
+.form-control:focus {
+    border-color: #c394da;
+    box-shadow: 0 0 10px rgba(195, 148, 218, 0.5);
+
+}
+
+::placeholder {
+    color: #ffffff;
+}
+
+
+.btn-primary {
+    background-color: #6b5278;
+    border: none;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #c394da;
+    color: #1C0C25;
 }
