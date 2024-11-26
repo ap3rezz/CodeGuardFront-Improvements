@@ -1,53 +1,19 @@
 <div class="container mt-4">
-    <div class="row justify-content-center">
-      <div class="col-12 d-flex justify-content-center mb-2">
-        <div class="card problem-card text-center title-card">
-          <div class="card-body">
-            <h5 class="card-title">{{ problemtitle }}</h5>
-          </div>
-        </div>
-      </div>
-    </div>
-    @if (solver) {
-      <div class="row justify-content-center">
-        <div class="col-12 d-flex justify-content-end mb-2">
-          <button [routerLink]="['/problem', problem.id, 'solutions']" class="btn btn-solutions">
-            Solutions
-          </button>
-        </div>
-      </div>
-    }
-    <div class="row justify-content-center">
-      <div class="col-12 mb-4">
-        <div class="card problem-card">
-          <div class="card-body">
-            <p class="card-text">{{ problemdescription }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-12 d-flex justify-content-between mt-4">
-        <div class="col-5"> 
-          <div class="card problem-card text-center">
-            <div class="card-body">
-              <h6 class="card-title">Stack Trace</h6>
-              <pre class="card-text stack-trace">{{ stackTrace }}</pre>
-            </div>
-          </div>
-          <div class="d-flex justify-content-center mt-4">
-            <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
-          </div>
-        </div>
-        <div class="col-7"> 
-          <div class="card problem-card text-center">
-            <div class="card-body">
-              <h6 class="card-title">Código</h6>
-              <textarea id="codeEditor" class="form-control" [(ngModel)]="userCode" rows="20"></textarea> 
-            </div>
-          </div>
-        </div>      
+  <div class="row justify-content-center">
+    <div class="col-12 d-flex justify-content-center mb-2">
+      <div class="col-3">
+        <textarea id="problemTitle" class="form-control text-center no-resize title-style" [(ngModel)]="problemTitle" (input)="autoResize($event)" placeholder="Spell Title"></textarea> 
       </div>
     </div>
   </div>
-  
+  <div class="row justify-content-center">
+    <div class="col-12 mb-4">  
+      <textarea id="problemDescription" class="form-control card-text problem-card no-resize"  [(ngModel)]="problemDescription" rows="15" (input)="autoResize($event)" placeholder="Spell Description"></textarea> 
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="d-flex justify-content-center mt-4">
+      <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+    </div>
+  </div>
+</div>

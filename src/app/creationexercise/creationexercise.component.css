@@ -1,4 +1,3 @@
-
 .btn-solutions {
     font-family: 'Cinzel', serif;
     border: 2px solid #6b5278;
@@ -48,13 +47,26 @@
 
 textarea.form-control {
     background-color: #1C0C25;
-    color: #ffffff; 
+    color: #d6d6d6; 
     border: 2px solid #6b5278;
 }
 
 textarea.form-control:focus {
     border-color: #c394da;
     box-shadow: 0 0 10px rgba(195, 148, 218, 0.5);
+}
+
+textarea.no-resize {
+    resize: none; 
+    overflow: hidden; 
+}
+
+textarea.title-style {
+    background-color: #1C0C25;
+    font-family: 'Cinzel', serif;
+    color: #9EBCF6;
+    font-size: 1.5rem; 
+    border: 2px solid #6b5278;
 }
 
 .btn-primary {
@@ -66,4 +78,8 @@ textarea.form-control:focus {
 .btn-primary:hover {
     background-color: #c394da;
     color: #1C0C25;
+}
+
+::placeholder {
+    color: #858585; 
 }
