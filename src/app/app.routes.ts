@@ -7,6 +7,7 @@ import { PersonalpageComponent } from './personalpage/personalpage.component';
 import { ExerciseListComponent } from './exerciselist/exerciselist.component';
 import { ExercisePageComponent } from './exercisepage/exercisepage.component';
 import { ExercisePageSolutionsComponent } from './exercisepagesolutions/exercisepagesolutions.component';
+import { CreationExerciseComponent } from './creationexercise/creationexercise.component';
 
 export const routes: Routes = [
     {path: 'signup', component: RegisterComponent},
@@ -16,5 +17,6 @@ export const routes: Routes = [
     {path: 'exerciselist',component: ExerciseListComponent},
     {path: 'personalpage', component: PersonalpageComponent},
     {path: 'problem/:id', component: ExercisePageComponent },
-    {path: 'problem/:id/solutions', component: ExercisePageSolutionsComponent },
+    {path: 'problem/:id/solutions', component: ExercisePageSolutionsComponent},
+    {path: 'creation',component: CreationExerciseComponent},
 ]
