@@ -17,7 +17,7 @@
 }
 
 .problem-card {
-    border: 2px solid #6b5278;
+ 
     background-color: #1C0C25;
     color: #aeaeae;
 }
@@ -34,12 +34,58 @@
 
 
 
-.value-box {
+.value-box pre {
+    
+    color: #d6d6d6;
+    background-color: #1C0C25;
+    border: none; 
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+
+.card.problem-card {
     border: 2px solid #6b5278;
     background-color: #1C0C25;
+    color: #aeaeae;
     border-radius: 10px;
+    margin-bottom: 20px; 
+    padding: 0; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  }
+  
+  
+  .user-box {
+    background-color: #2b1d35;
     padding: 10px;
-}
-
-
-
+    border-bottom: 2px solid #6b5278;
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    color: #9EBCF6;
+    font-size: 1.2rem;
+  }
+  
+  
+  .response-box {
+    padding: 15px; 
+    background-color: #1C0C25;
+    border-top: none;
+  }
+  
+  
+  .response-text {
+    color: #d6d6d6;
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
+    margin: 0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  
+  .container .row .col-12 {
+    margin-bottom: 25px; 
+  }
+  

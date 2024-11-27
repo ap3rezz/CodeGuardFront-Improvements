@@ -21,7 +21,11 @@
     <div class="col-12 mb-4">
       <div class="card problem-card">
         <div class="card-body">
-          <p class="card-text">{{ problemdescription }}</p>
+          @if(problem.creator != "ProjectEuler API") {
+            <div [innerHTML]="problemdescriptionHtml"></div>
+          } @else {
+            <div [innerHTML]="problemdescription" (load)="renderMathJax()"></div>
+          }
         </div>
       </div>
     </div>

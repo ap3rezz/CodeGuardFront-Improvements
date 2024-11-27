@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ExerciseService } from '../service/exercise.service';
 import { HttpClient } from '@angular/common/http';
 import { ExerciseResponse } from '../model/exercise-response';
-import { CompilerRequest } from '../model/compiler-request';
 import { SolutionsService } from '../service/solutions.service';
 import { CompilerService } from '../service/compiler.service';
 import { CompilerTestRequest } from '../model/compiler-test-request';
+import { marked } from 'marked';
+
+declare var MathJax: any;
 
 @Component({
   selector: 'app-testpage',
@@ -16,7 +18,7 @@ import { CompilerTestRequest } from '../model/compiler-test-request';
   templateUrl: './testpage.component.html',
   styleUrls: ['./testpage.component.css']
 })
-export class TestPageComponent implements OnInit {
+export class TestPageComponent implements OnInit, AfterViewChecked {
   problemtitle: string = "";
   problemdescription: string = "";
   stackTrace: string = "";
@@ -24,6 +26,8 @@ export class TestPageComponent implements OnInit {
   userTestsCode: string = "";
   exercisePlaceHolder: string = ""; 
   solver: boolean = false;
+  mathJaxLoaded: boolean = false;
+  problemdescriptionHtml: string = ""; 
 
   constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private solutionService: SolutionsService, private compilerService: CompilerService) { }
 
@@ -31,6 +35,7 @@ export class TestPageComponent implements OnInit {
     id: 0,
     title: "",
     description: "",
+    placeholder: "",
     tester: "",
     creator: "",
   };
@@ -51,24 +56,25 @@ export class TestPageComponent implements OnInit {
           this.problemtitle = data.title;
           this.problemdescription = data.description;
           this.problem = data;
+          this.problemdescriptionHtml = this.convertMarkdownToHtml(this.problemdescription);
           console.log('Datos del problema:', data);
         },
         error: (error) => {
           console.error('Error al obtener el problema:', error);
         }
       });
-  
-      this.solutionService.getSolution(loggedUsername, id).subscribe({
-        next: (data) => {
-          if (data.username == loggedUsername) {
-            this.solver = true;
-          }
-          console.log('Soluciones del problema:', data);
-        },
-        error: (error) => {
-          console.error('Error al obtener las soluciones del problema:', error);
-        }
-      });
+    }
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.problem.creator === "ProjectEuler API" && typeof MathJax !== 'undefined') {
+      this.renderMathJax();
+    }
+  }
+
+  renderMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.typesetPromise();
     }
   }
 
@@ -96,5 +102,11 @@ export class TestPageComponent implements OnInit {
         }
       });
     }
+  }
+
+  convertMarkdownToHtml(markdown: string): string {
+    
+    marked.setOptions({ async: false });
+    return marked(markdown) as string;
   }
 }

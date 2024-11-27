@@ -16,6 +16,10 @@
     color: #c394da;
 }
 
+.card-body-stacktrace{
+    border: 2px solid #6b5278;
+}
+
 .problem-card {
     border: 2px solid #6b5278;
     background-color: #1C0C25;
@@ -67,3 +71,4 @@ textarea.form-control:focus {
     background-color: #c394da;
     color: #1C0C25;
 }
+

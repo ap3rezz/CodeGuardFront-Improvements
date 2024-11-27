@@ -21,9 +21,14 @@
     <div class="col-12 mb-4">
       <div class="card problem-card">
         <div class="card-body">
-          <p class="card-text">{{ problemdescription }}</p>
+          @if(problem.creator != "ProjectEuler API") {
+            <div [innerHTML]="problemdescriptionHtml"></div>
+          } @else {
+            <div [innerHTML]="problemdescription" (load)="renderMathJax()"></div>
+          }
         </div>
       </div>
+      
     </div>
   </div>
   <div class="row justify-content-center">
@@ -32,7 +37,9 @@
         <div class="card problem-card text-center">
           <div class="card-body">
             <h6 class="card-title">Stack Trace</h6>
-            <pre class="card-text stack-trace">{{ stackTrace }}</pre>
+            <div class="card-body-stacktrace">
+              <pre class="card-text stack-trace">{{ stackTrace }}</pre>
+            </div>
           </div>
         </div>
         <div class="d-flex justify-content-center mt-4">
@@ -43,7 +50,7 @@
         <div class="card problem-card text-center">
           <div class="card-body">
             <h6 class="card-title">Código</h6>
-            <textarea id="codeEditor" class="form-control" [(ngModel)]="userCode" rows="20"></textarea> 
+            <textarea id="codeEditor" class="form-control" [(ngModel)]="userCode" [value]="placeholder" rows="20"></textarea> 
           </div>
         </div>
       </div>      
