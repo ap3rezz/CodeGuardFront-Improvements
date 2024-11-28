@@ -7,6 +7,9 @@ import { ExerciseResponse } from '../model/exercise-response';
 import { SolutionsService } from '../service/solutions.service';
 import { CompilerRequest } from '../model/compiler-request';
 import { CompilerService } from '../service/compiler.service';
+import { marked } from 'marked';
+
+declare var MathJax: any;
 
 @Component({
   selector: 'app-exercisepage',
@@ -21,6 +24,9 @@ export class ExercisePageComponent implements OnInit {
   stackTrace: string = "";
   userCode: string = "";
   solver: boolean = false;
+  problemdescriptionHtml: string = ""; 
+  placeholder: string = "";
+  mathJaxLoaded: boolean = false; 
 
   constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private solutionService: SolutionsService, private compilerService: CompilerService) { }
 
@@ -28,6 +34,7 @@ export class ExercisePageComponent implements OnInit {
     id: 0,
     title: "",
     description: "",
+    placeholder: "", 
     tester: "",
     creator: "",
   };
@@ -45,7 +52,10 @@ export class ExercisePageComponent implements OnInit {
         next: (data) => {
           this.problemtitle = data.title;
           this.problemdescription = data.description;
+          this.placeholder = data.placeholder; 
+          this.userCode = this.placeholder;
           this.problem = data;
+          this.problemdescriptionHtml = this.convertMarkdownToHtml(this.problemdescription);
           console.log('Datos del problema:', data);
         },
         error: (error) => {
@@ -67,6 +77,17 @@ export class ExercisePageComponent implements OnInit {
     }
   }
   
+  ngAfterViewChecked(): void {
+    if (this.problem.creator === "ProjectEuler API" && typeof MathJax !== 'undefined') {
+      this.renderMathJax();
+    }
+  }
+
+  renderMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.typesetPromise();
+    }
+  }
 
   onSubmit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -90,5 +111,10 @@ export class ExercisePageComponent implements OnInit {
         }
       });
     }
+  }
+  convertMarkdownToHtml(markdown: string): string {
+    
+    marked.setOptions({ async: false });
+    return marked(markdown) as string;
   }
 }

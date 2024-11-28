@@ -21,7 +21,11 @@
     <div class="col-12 mb-4">
       <div class="card problem-card">
         <div class="card-body">
-          <p class="card-text">{{ problemdescription }}</p>
+          @if(problem.creator != "ProjectEuler API") {
+            <div [innerHTML]="problemdescriptionHtml"></div>
+          } @else {
+            <div [innerHTML]="problemdescription" (load)="renderMathJax()"></div>
+          }
         </div>
       </div>
     </div>
@@ -58,7 +62,7 @@
         </div>
       </div>
     </div>
-    <div class="col-12 d-flex justify-content-end">
+    <div class="col-12 d-flex justify-content-end  mb-5">
       <div class="col-7">
         <div class="card problem-card text-center">
           <div class="card-body">

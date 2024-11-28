@@ -5,7 +5,6 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-3 justify-content-center mb-md-0">
                 <li class="me-4 ms-2">
                 @if (loggedUsername !== null) {
-
                     <a routerLink="/exerciselist" class="searchspells">Learn Spells</a>
                 }
                 @else{
@@ -13,7 +12,7 @@
                 }
                 </li>
                 @if(isCreator == "true"){
-                    <li  class="me-4">
+                    <li class="me-4">
                         <a href="#" class="searchspells">Create Spells</a>
                     </li>
                 }
@@ -24,11 +23,12 @@
                 }
             </ul>
             @if(loggedUser){
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" placeholder="Search Wizards..." class="form-control form-control-dark">
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-flex" [formGroup]="user" (ngSubmit)="onSearch()">
+                    <input type="text" placeholder="Search Wizard" class="form-control btn-search" formControlName="username">
+                    <button type="submit" class="btn btn-primary ms-2" [disabled]="!user.valid">Go</button>
                 </form>
                 <div class="text-end">
-                    <span class="searchspells me-1"><a routerLink="/personalpage" >{{loggedUsername}}</a></span>
+                    <span class="searchspells me-1"><a routerLink="/personalpage">{{loggedUsername}}</a></span>
                     <div routerLink="/" class="btn register" (click)="logout()">O/</div>
                 </div>
             }@else{
@@ -40,4 +40,3 @@
         </div>
     </div>
 </header>
-
