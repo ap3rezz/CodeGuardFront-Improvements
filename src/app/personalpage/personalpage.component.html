@@ -23,6 +23,12 @@
             <label class="font-weight-bold">Creator:</label>
             <p>{{ user.creator ? 'Sí' : 'No' }}</p>
           </div>
+          <form [formGroup]="passwords" (ngSubmit)="onSubmit()" class="form-group mt-3" >
+            <label class="font-weight-bold">Cambiar contraseña:</label><br>
+            <input type="text" class="form-control btn-search"  formControlName="oldpassword" placeholder="Old Password"/><br>
+            <input type="text" class="form-control btn-search" formControlName="newpassword" placeholder="New Password"/><br>
+            <button type="submit" class="btn btn-primary" [disabled]="!passwords.valid" (click)="onSubmit()">Cambiar</button>
+          </form>
           <div class="form-group mt-3">
             <label class="font-weight-bold">Problemas:</label>
             <ul class="list-group">
