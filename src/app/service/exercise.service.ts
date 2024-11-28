@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ExerciseResponse } from '../model/exercise-response';
+import { environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExerciseService {
-  private apiUrl = "http://localhost:8080/code-guard/exercise/";
+  private apiUrl = `${environment.apiUrl}/exercise/`;
 
   constructor(private http: HttpClient) { }
 

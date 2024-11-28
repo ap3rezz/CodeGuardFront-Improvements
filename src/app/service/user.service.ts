@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserRequest } from '../model/user-request';
 import { UserInfo } from '../model/user-info';
+import { environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private apiURL = "http://localhost:8080/code-guard"
+  private apiURL = environment.apiUrl;
 
   private httpOptionsJson = {
     headers: new HttpHeaders({'Content-Type':'application/json'}),

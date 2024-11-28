@@ -20,16 +20,27 @@ export class HeaderComponent implements OnInit {
     username: ['',[Validators.required, Validators.pattern(/^[a-zA-Z]{3,}\w*$/)],],
   });
 
-  ngOnInit(): void {
-    this.authService.isLoggedIn$.subscribe(
-      a => { if (a) this.updateHeader(); }
-    );
-  }
-
   loggedUsername = localStorage.getItem("loggedUsername");
   loggedUser = localStorage.getItem("JWT");
   isTester = localStorage.getItem("tester");
   isCreator = localStorage.getItem("creator");
+
+  ngOnInit(): void {
+    this.loggedUsername = localStorage.getItem("loggedUsername")||"";
+    this.authService.isLoggedIn$.subscribe(
+      a => { if (a) this.updateHeader(); }
+    );
+    this.userService.getUser(this.loggedUsername).subscribe({
+      next: data =>{
+        localStorage.setItem("tester", data.tester.toString());
+        localStorage.setItem("creator", data.creator.toString());
+        this.updateHeader();
+      },
+      error: error=>{
+        console.error("No username found");
+      }
+    });
+  }
 
   updateHeader() {
     this.loggedUsername = localStorage.getItem("loggedUsername");

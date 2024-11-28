@@ -4,7 +4,7 @@
             <a class="d-flex align-items-center me-3 mb-lg-0 text-white text-decoration-none" routerLink="/"><span class="logo">CodeGuard</span></a>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-3 justify-content-center mb-md-0">
                 <li class="me-4 ms-2">
-                @if (loggedUsername !== null) {
+                @if (loggedUser) {
                     <a routerLink="/exerciselist" class="searchspells">Learn Spells</a>
                 }
                 @else{
@@ -29,7 +29,7 @@
                 </form>
                 <div class="text-end">
                     <span class="searchspells me-1"><a routerLink="/personalpage">{{loggedUsername}}</a></span>
-                    <div routerLink="/" class="btn register" (click)="logout()">O/</div>
+                    <div routerLink="/" class="btn register" (click)="logout()">Exit</div>
                 </div>
             }@else{
                 <div class="text-end">

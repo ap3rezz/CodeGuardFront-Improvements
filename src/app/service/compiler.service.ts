@@ -4,12 +4,14 @@ import { CompilerResponse } from '../model/compiler-response';
 import { Observable } from 'rxjs';
 import { CompilerRequest } from '../model/compiler-request';
 import { CompilerTestRequest } from '../model/compiler-test-request';
+import { environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompilerService {
-  private apiUrl = "http://localhost:8080/code-guard/compiler/";
+  
+  private apiUrl = `${environment.apiUrl}/compiler/`;
 
   constructor(private http: HttpClient) { }
 

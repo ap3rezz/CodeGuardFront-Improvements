@@ -74,6 +74,8 @@ export class ExercisePageComponent implements OnInit {
           console.error('Error al obtener las soluciones del problema:', error);
         }
       });
+    }else{
+      this.router.navigate(['/login']);
     }
   }
   

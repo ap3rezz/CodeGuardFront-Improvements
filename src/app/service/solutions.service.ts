@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SolutionObjResponse } from '../model/solution-obj-response';
 import { Observable } from 'rxjs';
+import { environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SolutionsService {
 
-  private apiUrl = 'http://localhost:8080/code-guard/exercise';
+  private apiUrl = `${environment.apiUrl}/exercise`;
 
   constructor(private http: HttpClient) { }
 

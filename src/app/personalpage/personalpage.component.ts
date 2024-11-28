@@ -44,6 +44,7 @@ export class PersonalpageComponent implements OnInit {
       },
       error: (error) => {
         console.error("Can't delete the user:", error);
+        this.router.navigate(['/error']); //TODO: mandar a la pagina de error el mensaje de eror
       }
     });
   }
@@ -77,6 +78,7 @@ export class PersonalpageComponent implements OnInit {
       });
     } else {
       console.error('No se encontró el nombre de usuario en el localstorage');
+      this.router.navigate(['/login']);
     }
   }
 }

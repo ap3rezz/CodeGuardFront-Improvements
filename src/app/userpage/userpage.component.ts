@@ -39,6 +39,11 @@ export class UserPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    if(!localStorage.getItem("JWT")){
+      this.router.navigate(['/login']);
+    }
+
     const admin = localStorage.getItem("admin");
     const id = this.route.snapshot.paramMap.get('id');
 
@@ -70,6 +75,7 @@ export class UserPageComponent implements OnInit {
       });
     } else {
       console.error('No se encontró el nombre de usuario en el localstorage');
+      //TODO: mensaje de que no se muestra el usuario
     }
   }
 
@@ -82,6 +88,7 @@ export class UserPageComponent implements OnInit {
         this.router.navigate(['/']);
       },
       error: (error) => {
+        //TODO: redirigir a la pagina error anticheat
         console.error("Can't delete the user:", error);
       }
     });
