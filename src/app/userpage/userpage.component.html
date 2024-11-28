@@ -1,49 +1,65 @@
 <div class="container mt-4">
-    <div class="row">
-      <div class="col-12 mb-4">
-        <div class="card user-card">
-          <div class="card-header text-center text-light">
-            <h5>Información del Usuario</h5>
+  <div class="row">
+    <div class="col-12 mb-4">
+      <div class="card user-card">
+        <div class="card-header text-center text-light">
+          <h5>Información del Usuario</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="form-group mt-3">
+              <label class="font-weight-bold">Nombre de Usuario:</label>
+              <p id="username" class="form-group">{{ user.username }}</p>
+            </div>
+            <div>
+              @if (adminCheck === 'true') {
+                <div class="btn delete register" (click)="deleteThisUser()">avada kedavra</div>
+              }
+            </div>
           </div>
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="form-group mt-3">
-                <label class="font-weight-bold">Nombre de Usuario:</label>
-                <p id="username" class="form-group">{{ user.username }}</p>
-              </div>
-              <div>
-                @if (adminCheck==="true") {
-                  <div class="btn delete register" (click)="deleteThisUser()">avada kedavra</div>
-                }
-              </div>
-            </div>
-            <div class="form-group mt-1">
-              <label class="font-weight-bold">Tester:</label>
+          <div class="form-group mt-1">
+            <label class="font-weight-bold">Tester:</label>
+            @if (adminCheck === 'true') {
+              <br>
+              <input type="checkbox" [(ngModel)]="user.tester" />
+            }
+            @if (adminCheck !== 'true') {
               <p>{{ user.tester ? 'Sí' : 'No' }}</p>
-            </div>
-            <div class="form-group mt-3">
-              <label class="font-weight-bold">Creator:</label>
+            }
+            
+          </div>
+          <div class="form-group mt-3">
+            <label class="font-weight-bold">Creator:</label>
+            @if (adminCheck === 'true') {
+              <br>
+              <input type="checkbox" [(ngModel)]="user.creator" />
+            }
+            @if (adminCheck !== 'true') {
               <p>{{ user.creator ? 'Sí' : 'No' }}</p>
-            </div>
+            }
+          </div>
+          @if (adminCheck === 'true') {
             <div class="form-group mt-3">
-              <label class="font-weight-bold">Problemas:</label>
-              <ul class="list-group">
-                @if (user.exercises.length == 0) {
-                  <p>Aprende hechizos</p>
-                }
-                @else {
-                  @for (exercise of exercisenames;track exercisenames) {
-  
-                    <li [routerLink]="['/problem', exercise.id]" class="list-group-item">
-                      {{ exercise.title }}
-                    </li>
-                  }
-                }
-              </ul>
+              <button class="btn btn-primary" (click)="savePrivileges()">Guardar</button>
             </div>
+          }
+          <div class="form-group mt-3">
+            <label class="font-weight-bold">Problemas:</label>
+            <ul class="list-group">
+              @if (user.exercises.length == 0) {
+                <p>Aprende hechizos</p>
+              }
+              @else {
+                @for (exercise of exercisenames;track exercisenames) {
+                  <li [routerLink]="['/problem', exercise.id]" class="list-group-item">
+                    {{ exercise.title }}
+                  </li>
+                }
+              }
+            </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

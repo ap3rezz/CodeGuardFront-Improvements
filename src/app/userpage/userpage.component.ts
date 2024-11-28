@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
 import { UserService } from '../service/user.service';
 import { FormsModule } from '@angular/forms';
-
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { CommonModule } from '@angular/common';
 import { UserInfo } from '../model/user-info';
 import { ExerciseService } from '../service/exercise.service';
 import { ExerciseResponse } from '../model/exercise-response';
+import { AdminService } from '../service/admin.service'; 
+import { AdminPrivilegesRequest } from '../model/admin-privileges-request'; 
 
 @Component({
   selector: 'app-userpage',
@@ -25,8 +25,7 @@ export class UserPageComponent implements OnInit {
     exercises: []
   };
 
-  adminCheck:string = "";
-
+  adminCheck: string = "";
   exercisenames: ExerciseResponse[] = [];
 
   constructor(
@@ -34,8 +33,8 @@ export class UserPageComponent implements OnInit {
     private router: Router,
     private authservice: AuthService,
     private exerciseservice: ExerciseService,
-    private route: ActivatedRoute,
-    
+    private adminservice: AdminService, 
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +46,7 @@ export class UserPageComponent implements OnInit {
     const admin = localStorage.getItem("admin");
     const id = this.route.snapshot.paramMap.get('id');
 
-    if (id && admin ) {
+    if (id && admin) {
       this.adminCheck = admin;
       this.userservice.getUser(id).subscribe({
         next: (data) => {
@@ -92,5 +91,26 @@ export class UserPageComponent implements OnInit {
         console.error("Can't delete the user:", error);
       }
     });
+  }
+
+  savePrivileges(): void {
+    const adminPrivilegesRequest: AdminPrivilegesRequest = {
+      username: this.user.username,
+      tester: this.user.tester,
+      creator: this.user.creator
+    };
+
+    this.adminservice.postSolution(adminPrivilegesRequest).subscribe({
+      next: (response) => {
+        console.log("Privileges updated:", response);
+      },
+      error: (error) => {
+        console.error("Error updating privileges:", error);
+      }
+    });
+  }
+
+  trackByFn(index: number, item: ExerciseResponse): number {
+    return item.id;
   }
 }

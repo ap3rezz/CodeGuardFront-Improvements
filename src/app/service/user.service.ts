@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { UserRequest } from '../model/user-request';
 import { UserInfo } from '../model/user-info';
 import { environment } from '../environment';
+import { ChangePasswordResponse } from '../model/change-passwords-response';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,11 @@ export class UserService {
   deleteUser(username: string): Observable<any> {
     let token: string = localStorage.getItem('JWT') || "";
     return this.httpClient.delete(`${this.apiURL}/admin/delete?username=` + username, { headers: new HttpHeaders({ 'Authorization': token }) });
+  }
+
+  updatePassword(passwords: ChangePasswordResponse):Observable<any>{
+    let token: string = localStorage.getItem('JWT') || "";
+    return this.httpClient.patch(`${this.apiURL}/user/changePassword`, passwords,{ headers: new HttpHeaders({ 'Authorization': token }) });
   }
   
 
