@@ -17,14 +17,19 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-12 mb-4">
-      <div class="card problem-card mb-3">
+      <div class=" mb-3">
       @for (solution of problems; track problems) {
-        <div class="card-body cbs">    
-          <p class="card-text">{{ solution.username }}</p>
-          <div class="value-box">
-            <p class="card-text">{{ solution.solution }}</p>
+        
+        <div class="card problem-card mb-5">
+          <div class="user-box">
+            <p class="username">{{ solution.username }}</p>
+          </div>
+          <div class="response-box">
+            <pre class="response-text">{{ solution.solution }}</pre>
           </div>
         </div>
+        
+        
       }</div>
     </div>
   </div>

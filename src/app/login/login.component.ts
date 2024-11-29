@@ -38,7 +38,6 @@ export class LoginComponent {
       this.userService.loginUser(signupRequest).subscribe(
         response=>{
           console.log(`Cuerpo de la respuesta API: ${response.body}`);
-          console.log(`Cabezera Authorization: ${response.headers.get('Authorization')}`);
           if (response.headers.get('Authorization')) {
             localStorage.setItem('JWT', response.headers.get('Authorization'));
             localStorage.setItem('loggedUsername', response.body.username);

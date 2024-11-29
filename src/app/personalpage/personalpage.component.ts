@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '../service/user.service';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../service/auth.service';
@@ -9,11 +9,13 @@ import { CommonModule } from '@angular/common';
 import { UserInfo } from '../model/user-info';
 import { ExerciseService } from '../service/exercise.service';
 import { ExerciseResponse } from '../model/exercise-response';
+import { ChangePasswordResponse } from '../model/change-passwords-response';
+import { ErrorService } from '../service/error.service';
 
 @Component({
   selector: 'app-personalpage',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink],
+  imports: [FormsModule, CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './personalpage.component.html',
   styleUrls: ['./personalpage.component.css']
 })
@@ -31,8 +33,21 @@ export class PersonalpageComponent implements OnInit {
     private userservice: UserService,
     private router: Router,
     private authservice: AuthService,
-    private exerciseservice: ExerciseService
+    private exerciseservice: ExerciseService,
+    private fb: FormBuilder,
+    private errorService: ErrorService
   ) {}
+
+  passwords = this.fb.group({
+    oldpassword: ['', Validators.required],
+    newpassword: ['',Validators.required],
+  });
+
+  passwordsresponse: ChangePasswordResponse = {
+    oldPassword:"",
+    newPassword:"",
+  };
+
 
   deleteThisUser(): void {
     this.userservice.deleteLoggedUser().subscribe({
@@ -44,6 +59,8 @@ export class PersonalpageComponent implements OnInit {
       },
       error: (error) => {
         console.error("Can't delete the user:", error);
+        this.errorService.changeData({code: error.status, message: "Your user could not be deleted"});
+        this.router.navigate(['/error']);
       }
     });
   }
@@ -77,6 +94,22 @@ export class PersonalpageComponent implements OnInit {
       });
     } else {
       console.error('No se encontró el nombre de usuario en el localstorage');
+      this.router.navigate(['/login']);
+    }
+  }
+
+  onSubmit():void{
+    if (this.passwords.valid && this.passwords.value.oldpassword && this.passwords.value.newpassword){
+      this.passwordsresponse.oldPassword = this.passwords.value.oldpassword;
+      this.passwordsresponse.newPassword = this.passwords.value.newpassword;
+      this.userservice.updatePassword(this.passwordsresponse).subscribe({
+        next: (data) => {
+          console.log("Datos del usuario: ", data);
+        },
+        error: (error) => {
+          console.error("El usuario no existe: ", error); 
+        }
+      });
     }
   }
 }

@@ -12,23 +12,37 @@
               <p id="username" class="form-group">{{ user.username }}</p>
             </div>
             <div>
-              <div class="btn delete register" (click)="deleteThisUser()">avada kedavra</div>
+              @if (adminCheck === 'true') {
+                <div class="btn delete register" (click)="deleteThisUser()">avada kedavra</div>
+              }
             </div>
           </div>
           <div class="form-group mt-1">
             <label class="font-weight-bold">Tester:</label>
-            <p>{{ user.tester ? 'Sí' : 'No' }}</p>
+            @if (adminCheck === 'true') {
+              <br>
+              <input type="checkbox" [(ngModel)]="user.tester" />
+            }
+            @if (adminCheck !== 'true') {
+              <p>{{ user.tester ? 'Sí' : 'No' }}</p>
+            }
+            
           </div>
           <div class="form-group mt-3">
             <label class="font-weight-bold">Creator:</label>
-            <p>{{ user.creator ? 'Sí' : 'No' }}</p>
+            @if (adminCheck === 'true') {
+              <br>
+              <input type="checkbox" [(ngModel)]="user.creator" />
+            }
+            @if (adminCheck !== 'true') {
+              <p>{{ user.creator ? 'Sí' : 'No' }}</p>
+            }
           </div>
-          <form [formGroup]="passwords" (ngSubmit)="onSubmit()" class="form-group mt-3" >
-            <label class="font-weight-bold">Cambiar contraseña:</label><br>
-            <input type="text" class="form-control btn-search"  formControlName="oldpassword" placeholder="Old Password"/><br>
-            <input type="text" class="form-control btn-search" formControlName="newpassword" placeholder="New Password"/><br>
-            <button type="submit" class="btn btn-primary" [disabled]="!passwords.valid" (click)="onSubmit()">Cambiar</button>
-          </form>
+          @if (adminCheck === 'true') {
+            <div class="form-group mt-3">
+              <button class="btn btn-primary" (click)="savePrivileges()">Guardar</button>
+            </div>
+          }
           <div class="form-group mt-3">
             <label class="font-weight-bold">Problemas:</label>
             <ul class="list-group">
@@ -37,7 +51,6 @@
               }
               @else {
                 @for (exercise of exercisenames;track exercisenames) {
-
                   <li [routerLink]="['/problem', exercise.id]" class="list-group-item">
                     {{ exercise.title }}
                   </li>
