@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ExerciseResponse } from '../model/exercise-response';
 import { CompilerResponse } from '../model/compiler-response';
+import { CreateExerciseRequest } from '../model/create-exercise-request';
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +25,10 @@ export class ExerciseService {
     return this.http.get<ExerciseResponse>(this.apiUrl+exerciseId, { headers: new HttpHeaders({ 'Authorization': token }) });
   }
 
-  //TODO: Actualziar la peticion cuando esté el controler de crear problema echo
-  postProblem(): Observable<any> {
+
+  postProblem(createexerciserequest:CreateExerciseRequest): Observable<ExerciseResponse> {
     let token: string = localStorage.getItem('JWT') || "";
 
-    return this.http.post<any>(this.apiUrl+"",{ headers: new HttpHeaders({ 'Authorization': token }) });
+    return this.http.post<ExerciseResponse>(`${this.apiUrl}createExercise`, createexerciserequest,{ headers: new HttpHeaders({ 'Authorization': token }) });  
   }
 }

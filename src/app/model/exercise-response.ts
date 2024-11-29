@@ -4,4 +4,5 @@ export interface ExerciseResponse {
     description:string;
     tester:string;
     title:string;
+    placeholder:string;
 }

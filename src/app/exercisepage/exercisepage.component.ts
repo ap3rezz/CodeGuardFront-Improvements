@@ -30,6 +30,7 @@ export class ExercisePageComponent implements OnInit {
     description: "",
     tester: "",
     creator: "",
+    placeholder:"",
   };
 
   solution: CompilerRequest = {

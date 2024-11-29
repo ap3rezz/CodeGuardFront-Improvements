@@ -45,23 +45,23 @@
     overflow-y: auto; 
 }
 
-textarea.form-control {
+.form-control {
     background-color: #1C0C25;
     color: #d6d6d6; 
     border: 2px solid #6b5278;
 }
 
-textarea.form-control:focus {
+.form-control:focus {
     border-color: #c394da;
     box-shadow: 0 0 10px rgba(195, 148, 218, 0.5);
 }
 
-textarea.no-resize {
+.no-resize {
     resize: none; 
     overflow: hidden; 
 }
 
-textarea.title-style {
+.title-style {
     background-color: #1C0C25;
     font-family: 'Cinzel', serif;
     color: #9EBCF6;
