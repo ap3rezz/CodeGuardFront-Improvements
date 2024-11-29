@@ -82,9 +82,7 @@ export class UserPageComponent implements OnInit {
   deleteThisUser(): void {
     this.userservice.deleteUser(this.user.username).subscribe({
       next: (response) => {
-        localStorage.clear();
         console.log("Deleted user:", response);
-        this.authservice.setLoggedIn(true);
         this.router.navigate(['/']);
       },
       error: (error) => {
