@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { SolutionsService } from '../service/solutions.service';
 import { CommonModule } from '@angular/common';
 import { ExerciseService } from '../service/exercise.service';
 import { SolutionObjResponse } from '../model/solution-obj-response';
@@ -14,7 +13,7 @@ import { SolutionObjResponse } from '../model/solution-obj-response';
 })
 export class ExercisePageSolutionsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private solutionService: SolutionsService, private exerciseService: ExerciseService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private router: Router) {}
 
   problems: SolutionObjResponse[] = [];
   id: string = "";
@@ -27,7 +26,7 @@ export class ExercisePageSolutionsComponent implements OnInit {
     }
     if (routeId) {
       this.id = routeId;
-      this.solutionService.getSolutions(routeId).subscribe({
+      this.exerciseService.getSolutions(routeId).subscribe({
         next: (data) => {
           data.forEach(element=>{
             this.problems.push(element);

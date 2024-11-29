@@ -62,7 +62,9 @@ export class HeaderComponent implements OnInit {
           this.router.navigate(['/user', data.username]);
         },
         error: (error) => {
-          console.error("El usuario no existe: ", error); 
+          console.error("El usuario no existe: ", error);
+          //document.getElementById("search-bar")?.classList.add("search-error");
+          alert("El usuario no existe");
         }
       });
     }

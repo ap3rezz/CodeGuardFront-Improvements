@@ -38,6 +38,11 @@ a {
 
 }
 
+.search-error:focus {
+    border-color: #d74036;
+    box-shadow: 0 0 10px rgba(225, 78, 52, 0.5);
+}
+
 ::placeholder {
     color: #ffffff45;
 }

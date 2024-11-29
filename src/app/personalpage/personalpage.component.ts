@@ -10,6 +10,7 @@ import { UserInfo } from '../model/user-info';
 import { ExerciseService } from '../service/exercise.service';
 import { ExerciseResponse } from '../model/exercise-response';
 import { ChangePasswordResponse } from '../model/change-passwords-response';
+import { ErrorService } from '../service/error.service';
 
 @Component({
   selector: 'app-personalpage',
@@ -34,6 +35,7 @@ export class PersonalpageComponent implements OnInit {
     private authservice: AuthService,
     private exerciseservice: ExerciseService,
     private fb: FormBuilder,
+    private errorService: ErrorService
   ) {}
 
   passwords = this.fb.group({
@@ -57,7 +59,8 @@ export class PersonalpageComponent implements OnInit {
       },
       error: (error) => {
         console.error("Can't delete the user:", error);
-        this.router.navigate(['/error']); //TODO: mandar a la pagina de error el mensaje de eror
+        this.errorService.changeData({code: error.status, message: "Your user could not be deleted"});
+        this.router.navigate(['/error']);
       }
     });
   }

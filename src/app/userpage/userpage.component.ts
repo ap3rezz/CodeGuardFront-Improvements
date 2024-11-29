@@ -9,6 +9,7 @@ import { ExerciseService } from '../service/exercise.service';
 import { ExerciseResponse } from '../model/exercise-response';
 import { AdminService } from '../service/admin.service'; 
 import { AdminPrivilegesRequest } from '../model/admin-privileges-request'; 
+import { ErrorService } from '../service/error.service';
 
 @Component({
   selector: 'app-userpage',
@@ -34,7 +35,8 @@ export class UserPageComponent implements OnInit {
     private authservice: AuthService,
     private exerciseservice: ExerciseService,
     private adminservice: AdminService, 
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private errorService: ErrorService
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +76,6 @@ export class UserPageComponent implements OnInit {
       });
     } else {
       console.error('No se encontró el nombre de usuario en el localstorage');
-      //TODO: mensaje de que no se muestra el usuario
     }
   }
 
@@ -87,8 +88,9 @@ export class UserPageComponent implements OnInit {
         this.router.navigate(['/']);
       },
       error: (error) => {
-        //TODO: redirigir a la pagina error anticheat
         console.error("Can't delete the user:", error);
+        this.errorService.changeData({code: error.status, message: "You can't delete the user"});
+        this.router.navigate(['/error']);
       }
     });
   }
@@ -106,6 +108,8 @@ export class UserPageComponent implements OnInit {
       },
       error: (error) => {
         console.error("Error updating privileges:", error);
+        this.errorService.changeData({code: error.status, message: "You can't change user priviledges"});
+        this.router.navigate(['/error']);
       }
     });
   }

@@ -19,7 +19,6 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  //TODO: mirar si alguna de estas solicitudes que reciben "any" requiere un model para almacenar la respuesta
   registerUser(signupRequest:UserRequest):Observable<any>{
     return this.httpClient.post(`${this.apiURL}/register`, JSON.stringify(signupRequest), this.httpOptionsJson)
   }

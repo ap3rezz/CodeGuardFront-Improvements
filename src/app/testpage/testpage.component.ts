@@ -4,7 +4,6 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ExerciseService } from '../service/exercise.service';
 import { HttpClient } from '@angular/common/http';
 import { ExerciseResponse } from '../model/exercise-response';
-import { SolutionsService } from '../service/solutions.service';
 import { CompilerService } from '../service/compiler.service';
 import { CompilerTestRequest } from '../model/compiler-test-request';
 import { marked } from 'marked';
@@ -29,7 +28,7 @@ export class TestPageComponent implements OnInit, AfterViewChecked {
   mathJaxLoaded: boolean = false;
   problemdescriptionHtml: string = ""; 
 
-  constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private solutionService: SolutionsService, private compilerService: CompilerService) { }
+  constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private compilerService: CompilerService) { }
 
   problem: ExerciseResponse = {
     id: 0,
@@ -98,10 +97,19 @@ export class TestPageComponent implements OnInit, AfterViewChecked {
               this.stackTrace += data.executionMessage;
             }
           }
-          console.log("Error al compilar el codigo: ", data);
+          console.log("Resultado de la compilación: ", data);
         },
         error: (error) => {
           console.error("Error al compilar el código:", error);
+          if(error.status == 400){
+            this.stackTrace="One class name is not well written, The placeholder is compulsory";
+          }
+          if(error.status == 408){
+            this.stackTrace="Time limit exceeded";
+          }
+          if(error.status == 500){
+            this.stackTrace="Internal Server Error";
+          }
         }
       });
     }
