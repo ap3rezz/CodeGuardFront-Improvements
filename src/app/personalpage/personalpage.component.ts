@@ -10,6 +10,7 @@ import { UserInfo } from '../model/user-info';
 import { ExerciseService } from '../service/exercise.service';
 import { ExerciseResponse } from '../model/exercise-response';
 import { ChangePasswordResponse } from '../model/change-passwords-response';
+import { ErrorService } from '../service/error.service';
 
 @Component({
   selector: 'app-personalpage',
@@ -34,6 +35,7 @@ export class PersonalpageComponent implements OnInit {
     private authservice: AuthService,
     private exerciseservice: ExerciseService,
     private fb: FormBuilder,
+    private errorService: ErrorService
   ) {}
 
   passwords = this.fb.group({
@@ -57,6 +59,8 @@ export class PersonalpageComponent implements OnInit {
       },
       error: (error) => {
         console.error("Can't delete the user:", error);
+        this.errorService.changeData({code: error.status, message: "Your user could not be deleted"});
+        this.router.navigate(['/error']);
       }
     });
   }
@@ -90,6 +94,7 @@ export class PersonalpageComponent implements OnInit {
       });
     } else {
       console.error('No se encontró el nombre de usuario en el localstorage');
+      this.router.navigate(['/login']);
     }
   }
 

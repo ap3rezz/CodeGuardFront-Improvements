@@ -4,10 +4,10 @@ import { ExerciseService } from '../service/exercise.service';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ExerciseResponse } from '../model/exercise-response';
-import { SolutionsService } from '../service/solutions.service';
 import { CompilerRequest } from '../model/compiler-request';
 import { CompilerService } from '../service/compiler.service';
 import { marked } from 'marked';
+import { retry } from 'rxjs/operators';
 
 declare var MathJax: any;
 
@@ -28,7 +28,7 @@ export class ExercisePageComponent implements OnInit {
   placeholder: string = "";
   mathJaxLoaded: boolean = false; 
 
-  constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private solutionService: SolutionsService, private compilerService: CompilerService) { }
+  constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private compilerService: CompilerService) { }
 
   problem: ExerciseResponse = {
     id: 0,
@@ -63,7 +63,7 @@ export class ExercisePageComponent implements OnInit {
         }
       });
   
-      this.solutionService.getSolution(loggedUsername, id).subscribe({
+      this.exerciseService.getSolution(loggedUsername, id).subscribe({
         next: (data) => {
           if (data.username == loggedUsername) {
             this.solver = true;
@@ -74,6 +74,8 @@ export class ExercisePageComponent implements OnInit {
           console.error('Error al obtener las soluciones del problema:', error);
         }
       });
+    }else{
+      this.router.navigate(['/login']);
     }
   }
   
@@ -95,7 +97,7 @@ export class ExercisePageComponent implements OnInit {
     if (id) {
       this.solution.exerciseId = id;
       this.solution.exerciseSolution = this.userCode;
-      this.compilerService.postSolution(this.solution).subscribe({
+      this.compilerService.postSolution(this.solution).pipe(retry(0)).subscribe({
         next: (data) => {
           if (data.exerciseCompilationCode != 0) {
             this.stackTrace = data.exerciseCompilationMessage;
@@ -104,10 +106,19 @@ export class ExercisePageComponent implements OnInit {
               this.stackTrace += data.executionMessage;
             }
           }
-          console.log("Error al compilar el codigo: ", data);
+          console.log("Resultado de la compilación: ", data);
         },
         error: (error) => {
           console.error("Error al compilar el código:", error);
+          if(error.status == 400){
+            this.stackTrace="The class name is not well written...";
+          }
+          if(error.status == 408){
+            this.stackTrace="Time limit exceeded";
+          }
+          if(error.status == 500){
+            this.stackTrace="Internal Server Error";
+          }
         }
       });
     }

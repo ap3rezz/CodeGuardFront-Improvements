@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; 
 import { ExerciseResponse } from '../model/exercise-response';
 import { ExerciseService } from '../service/exercise.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-exerciselist',
@@ -20,9 +20,12 @@ export class ExerciseListComponent implements OnInit {
   searchType: string = 'title';
   username: string = localStorage.getItem("loggedUsername") || ""; 
 
-  constructor(private exerciseService: ExerciseService) {}
+  constructor(private exerciseService: ExerciseService, private router: Router) {}
 
   ngOnInit(): void {
+    if(!localStorage.getItem("JWT")){
+      this.router.navigate(['/login']);
+    }
     this.exerciseService.getProblems().subscribe({
       next: (data) => {
         console.log("Problemas: ", data);

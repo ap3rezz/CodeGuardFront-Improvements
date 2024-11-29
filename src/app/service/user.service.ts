@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserRequest } from '../model/user-request';
 import { UserInfo } from '../model/user-info';
+import { environment } from '../environment';
 import { ChangePasswordResponse } from '../model/change-passwords-response';
 
 @Injectable({
@@ -10,7 +11,7 @@ import { ChangePasswordResponse } from '../model/change-passwords-response';
 })
 export class UserService {
 
-  private apiURL = "http://localhost:8080/code-guard"
+  private apiURL = environment.apiUrl;
 
   private httpOptionsJson = {
     headers: new HttpHeaders({'Content-Type':'application/json'}),
@@ -18,7 +19,6 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  //TODO: mirar si alguna de estas solicitudes que reciben "any" requiere un model para almacenar la respuesta
   registerUser(signupRequest:UserRequest):Observable<any>{
     return this.httpClient.post(`${this.apiURL}/register`, JSON.stringify(signupRequest), this.httpOptionsJson)
   }

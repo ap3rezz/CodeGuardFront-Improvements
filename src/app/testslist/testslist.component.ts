@@ -3,7 +3,7 @@ import { ExerciseResponse } from '../model/exercise-response';
 import { ExerciseService } from '../service/exercise.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-testslist',
@@ -20,20 +20,24 @@ export class TestsListComponent implements OnInit {
   searchType: string = 'title';
   username: string = localStorage.getItem("loggedUsername") || ""; 
 
-  constructor(private exerciseService: ExerciseService) {}
+  constructor(private exerciseService: ExerciseService, private router: Router) {}
 
   ngOnInit(): void {
-    this.exerciseService.getProblems().subscribe({
-      next: (data) => {
-        console.log("Problemas: ", data);
-        this.problems = data.filter(problem => problem.tester === null);
-        this.filteredProblems = this.problems;
-        console.log("Problemas filtrados: ", this.problems);
-      },
-      error: (error) => {
-        console.error('Error al obtener los problemas:', error);
-      },
-    });
+    if(localStorage.getItem("JWT")){
+      this.exerciseService.getProblems().subscribe({
+        next: (data) => {
+          console.log("Problemas: ", data);
+          this.problems = data.filter(problem => problem.tester === null);
+          this.filteredProblems = this.problems;
+          console.log("Problemas filtrados: ", this.problems);
+        },
+        error: (error) => {
+          console.error('Error al obtener los problemas:', error);
+        },
+      });
+    }else{
+      this.router.navigate(['/login']);
+    }
   }
   
   onSearch(): void {
