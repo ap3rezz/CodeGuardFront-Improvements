@@ -1,0 +1,85 @@
+.btn-solutions {
+    font-family: 'Cinzel', serif;
+    border: 2px solid #6b5278;
+    background-color: #1C0C25;
+    color: #aeaeae;
+    padding: 8px 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-solutions:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(147, 112, 219, 0.8);
+    border-color: #c394da;
+    color: #c394da;
+}
+
+.problem-card {
+    border: 2px solid #6b5278;
+    background-color: #1C0C25;
+    color: #aeaeae;
+}
+
+.title-card {
+    display: inline-block;
+    width: auto;
+    max-width: 100%;
+    box-shadow: 0 0 20px rgba(147, 112, 219, 0.4);
+}
+
+.card-title {
+    font-family: 'Cinzel', serif;
+    color: #9EBCF6;
+    font-size: 1.5rem; 
+}
+
+.card-text {
+    text-align: left;
+    color: #d6d6d6;
+    font-size: large;
+}
+
+.stack-trace {
+    height: 500px; 
+    overflow-y: auto; 
+}
+
+.form-control {
+    background-color: #1C0C25;
+    color: #d6d6d6; 
+    border: 2px solid #6b5278;
+}
+
+.form-control:focus {
+    border-color: #c394da;
+    box-shadow: 0 0 10px rgba(195, 148, 218, 0.5);
+}
+
+.no-resize {
+    resize: none; 
+    overflow: hidden; 
+}
+
+.title-style {
+    background-color: #1C0C25;
+    font-family: 'Cinzel', serif;
+    color: #9EBCF6;
+    font-size: 1.5rem; 
+    border: 2px solid #6b5278;
+}
+
+.btn-primary {
+    background-color: #6b5278;
+    border: none;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #c394da;
+    color: #1C0C25;
+}
+
+::placeholder {
+    color: #858585; 
+}
