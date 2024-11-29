@@ -37,7 +37,6 @@ export class ExercisePageComponent implements OnInit {
     placeholder: "", 
     tester: "",
     creator: "",
-    placeholder:"",
   };
 
   solution: CompilerRequest = {

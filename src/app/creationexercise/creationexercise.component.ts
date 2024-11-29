@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ExerciseService } from '../service/exercise.service';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './creationexercise.component.html',
   styleUrl: './creationexercise.component.css'
 })
-export class CreationExerciseComponent{
+export class CreationExerciseComponent implements OnInit{
 
   constructor(private fb: FormBuilder,
     private exerciseservice: ExerciseService,
@@ -29,7 +29,11 @@ export class CreationExerciseComponent{
     description:"",
   }
   
-
+  ngOnInit(): void {
+    if(!localStorage.getItem("JWT")){
+      this.router.navigate(['/login']);
+    }
+  }
 
   onSubmit(): void {
     if (this.exercise.valid && this.exercise.value.title && this.exercise.value.description) {
@@ -39,12 +43,12 @@ export class CreationExerciseComponent{
       this.exerciseservice.postProblem(this.exercisedata).subscribe({       
          next: (data)=>{
            console.log("Problema creado: ",data);
-           //if(localStorage.getItem("tester")=="true"){
-           // this.router.navigate(['/test/'+data.id]); 
-           //}
-           //else{
+           if(localStorage.getItem("tester")=="true"){
+            this.router.navigate(['/test/'+data.id]); 
+           }
+           else{
              this.router.navigate(['/']);
-           //}
+           }
         },
         error: (error)=>{
           console.error("Error al crear el problema: ",error);

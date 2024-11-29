@@ -5,5 +5,4 @@ export interface ExerciseResponse {
     placeholder:string;
     tester:string;
     title:string;
-    placeholder:string;
 }

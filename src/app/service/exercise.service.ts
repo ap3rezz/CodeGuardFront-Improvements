@@ -40,6 +40,6 @@ export class ExerciseService {
   postProblem(createexerciserequest:CreateExerciseRequest): Observable<ExerciseResponse> {
     let token: string = localStorage.getItem('JWT') || "";
 
-    return this.http.post<ExerciseResponse>(`${this.apiUrl}createExercise`, createexerciserequest,{ headers: new HttpHeaders({ 'Authorization': token }) });  
+    return this.http.post<ExerciseResponse>(`${this.apiUrl}/createExercise`, createexerciserequest,{ headers: new HttpHeaders({ 'Authorization': token }) });  
   }
 }
