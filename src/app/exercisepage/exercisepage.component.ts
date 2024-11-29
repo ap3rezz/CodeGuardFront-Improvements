@@ -105,6 +105,9 @@ export class ExercisePageComponent implements OnInit {
             if (data.exerciseCompilationCode == 0) {
               this.stackTrace += data.executionMessage;
             }
+            if (data.executionCode == 0){
+              this.solver = true;
+            }
           }
           console.log("Resultado de la compilación: ", data);
         },
