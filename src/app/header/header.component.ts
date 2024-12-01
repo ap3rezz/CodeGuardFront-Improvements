@@ -59,6 +59,7 @@ export class HeaderComponent implements OnInit {
       this.userService.getUser(this.user.value.username).subscribe({
         next: (data) => {
           console.log("Datos del usuario: ", data);
+          this.user.reset();
           this.router.navigate(['/user', data.username]);
         },
         error: (error) => {

@@ -103,6 +103,7 @@ export class UserPageComponent implements OnInit {
     this.adminservice.postSolution(adminPrivilegesRequest).subscribe({
       next: (response) => {
         console.log("Privileges updated:", response);
+        this.router.navigate(['/']);
       },
       error: (error) => {
         console.error("Error updating privileges:", error);

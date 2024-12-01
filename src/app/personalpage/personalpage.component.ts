@@ -105,6 +105,7 @@ export class PersonalpageComponent implements OnInit {
       this.userservice.updatePassword(this.passwordsresponse).subscribe({
         next: (data) => {
           console.log("Datos del usuario: ", data);
+          this.passwords.reset();
         },
         error: (error) => {
           console.error("El usuario no existe: ", error); 
