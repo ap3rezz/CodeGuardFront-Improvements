@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-12 d-flex justify-content-center mb-2">
+      <div class="card problem-card text-center title-card">
+        <div class="card-body">
+          <h5 class="card-title">{{ title }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 d-flex justify-content-end mb-2">
+      <button [routerLink]="['/problem/', id]" class="btn btn-solutions">
+        Return
+      </button>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 mb-4">
+      <div class=" mb-3">
+      @for (solution of problems; track problems) {
+        
+        <div class="card problem-card mb-5">
+          <div class="user-box">
+            <p class="username">{{ solution.username }}</p>
+          </div>
+          <div class="response-box">
+            <pre class="response-text">{{ solution.solution }}</pre>
+          </div>
+        </div>
+        
+        
+      }</div>
+    </div>
+  </div>
+</div>

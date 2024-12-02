@@ -1,1 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Cormorant+Garamond&display=swap');
+
+.error-feedback{
+    color: red;
+    font-size: 0.9rem;
+    margin: 0.3rem !important;
+    margin-top: 0.1rem !important;
+}
+:root{
+    background-color: #271630;
+    color: #9f9f9f;
+}
+body{
+    background-color: #271630;
+}
+.login{
+    font-family: 'Cinzel', serif;
+    border: #c394da 2px solid;
+    color: #aeaeae;
+}
+.login:hover{
+    border: #6b5278 2px solid;
+    color: rgba(255, 215, 0, 1);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 140, 0, 0.7);
+}
+.register{
+    font-family: 'Cinzel', serif;
+    border: #8fa8db 2px solid;
+    color: #aeaeae;
+}
+.register:hover{
+    border: #5f6f90 2px solid;
+    color: rgba(255, 215, 0, 1);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 140, 0, 0.7);
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px rgba(255, 223, 0, 0.6), 0 0 20px rgba(255, 140, 0, 0.4); 
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 140, 0, 0.7); 
+    }
+}
+
+@keyframes pulsate {
+    0% {
+        box-shadow: 0 0 15px rgba(147, 112, 219, 0.4); 
+    }
+    100% {
+        box-shadow: 0 0 35px rgba(147, 112, 219, 0.8); 
+    }
+}

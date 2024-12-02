@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <form [formGroup]="exercise" (ngSubmit)="onSubmit()">
+    <div class="row justify-content-center">
+      <div class="col-12 d-flex justify-content-center mb-2">
+        <div class="col-3">
+          <textarea id="problemTitle" class="form-control text-center no-resize title-style" formControlName="title" (input)="autoResize($event)" placeholder="Spell Title"></textarea> 
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-12 mb-4">  
+        <textarea id="problemDescription" class="form-control card-text problem-card no-resize"  formControlName="description" rows="15" (input)="autoResize($event)" placeholder="Spell Description"></textarea> 
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="d-flex justify-content-center mt-4 mb-5">
+        <button type="submit" class="btn btn-primary" [disabled]="!exercise.valid">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>

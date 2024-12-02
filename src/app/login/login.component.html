@@ -1,0 +1,46 @@
+<div
+  class="container d-flex align-items-center justify-content-center"
+  style="height: 80vh"
+>
+  <div class="form-box" style="min-height: 100px">
+    <div class="p-4 w-100">
+      <h1>Log In</h1>
+      <div class="d-flex justify-content-start align-items-center">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <input type="text" formControlName="username" placeholder="Username"/>
+            <div class="error-feedback">
+              @if (loginForm.controls['username'].touched &&
+              loginForm.controls['username'].hasError('required')) {
+              <span>Please enter your full name</span>
+              }
+            </div>
+            <div class="error-feedback">
+              @if (loginForm.controls['username'].touched &&
+              loginForm.controls['username'].hasError('pattern')) {
+              <span>Please enter a valid name</span>
+              }
+            </div>
+          </div>
+          <div class="mb-3">
+            <input type="password" formControlName="password" placeholder="password"/>
+            <div class="error-feedback">
+              @if (loginForm.controls['password'].touched &&
+              loginForm.controls['password'].hasError('required')) {
+              <span>Please enter a valid password</span>
+              }
+            </div>
+          </div>
+          <div class="mb-3">
+            <button type="submit" class="btn login" [disabled]="!loginForm.valid">Log In</button>
+          </div>
+          <div class="error-feedback">
+            @if (invalidCredentials) {
+            <span>The username or password are incorrect</span>
+            }
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

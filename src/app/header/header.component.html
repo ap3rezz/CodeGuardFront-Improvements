@@ -1,0 +1,42 @@
+<header class="p-2 m-2">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center">
+            <a class="d-flex align-items-center me-3 mb-lg-0 text-white text-decoration-none" routerLink="/"><span class="logo">CodeGuard</span></a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-3 justify-content-center mb-md-0">
+                <li class="me-4 ms-2">
+                @if (loggedUser) {
+                    <a routerLink="/exerciselist" class="searchspells">Learn Spells</a>
+                }
+                @else{
+                    <a routerLink="/login" class="searchspells">Learn Spells</a>
+                }
+                </li>
+                @if(isCreator == "true"){
+                    <li  class="me-4">
+                        <a routerLink="/creation" class="searchspells">Create Spells</a>
+                    </li>
+                }
+                @if(isTester == "true"){
+                    <li>
+                        <a routerLink="/testslist" class="searchspells">Arcane Workshop</a>
+                    </li>
+                }
+            </ul>
+            @if(loggedUser){
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-flex" [formGroup]="user" (ngSubmit)="onSearch()">
+                    <input id="search-bar" type="text" placeholder="Search Wizard" class="form-control btn-search" formControlName="username">
+                    <button type="submit" class="btn btn-primary ms-2" [disabled]="!user.valid">Go</button>
+                </form>
+                <div class="text-end">
+                    <span class="searchspells me-1"><a routerLink="/personalpage">{{loggedUsername}}</a></span>
+                    <div routerLink="/" class="btn register" (click)="logout()">Exit</div>
+                </div>
+            }@else{
+                <div class="text-end">
+                    <button type="button" class="btn login me-2" routerLink="/login">Log in</button>
+                    <button type="button" class="btn register" routerLink="/signup">Register</button>
+                </div>
+            }
+        </div>
+    </div>
+</header>
