@@ -5,7 +5,7 @@
         <input
           type="text"
           class="form-control search-bar"
-          placeholder="Buscar problemas..."
+          placeholder="Search spells..."
           [(ngModel)]="searchKeyword"
           (input)="onSearch()"
         />
@@ -29,7 +29,7 @@
               (change)="onSearch()"
               checked 
             />
-            <label class="form-check-label text-light" for="filterTitle">Nombre del problema</label>
+            <label class="form-check-label text-light" for="filterTitle">Spell name</label>
           </div>
           <div class="form-check mb-2">
             <input
@@ -41,7 +41,7 @@
               [(ngModel)]="searchType"
               (change)="onSearch()"
             />
-            <label class="form-check-label text-light" for="filterTester">Nombre del tester</label>
+            <label class="form-check-label text-light" for="filterTester">Tester name</label>
           </div>
           <div class="form-check mb-2">
             <input
@@ -53,7 +53,7 @@
               [(ngModel)]="searchType"
               (change)="onSearch()"
             />
-            <label class="form-check-label text-light" for="filterCreator">Nombre del creator</label>
+            <label class="form-check-label text-light" for="filterCreator">Creator name</label>
           </div>
           <div class="form-check">
             <input
@@ -65,7 +65,7 @@
               [(ngModel)]="searchType"
               (change)="onSearch()"
             />
-            <label class="form-check-label text-light" for="filterOwn">Problemas propios</label>
+            <label class="form-check-label text-light" for="filterOwn">Self spells</label>
           </div>
         </div>
       </div>

@@ -3,12 +3,12 @@
     <div class="col-12 mb-4">
       <div class="card user-card">
         <div class="card-header text-center text-light">
-          <h5>Información del Usuario</h5>
+          <h5>Wizard Data</h5>
         </div>
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center">
             <div class="form-group mt-3">
-              <label class="font-weight-bold">Nombre de Usuario:</label>
+              <label class="font-weight-bold">Wizard Username:</label>
               <p id="username" class="form-group">{{ user.username }}</p>
             </div>
             <div>
@@ -40,14 +40,14 @@
           </div>
           @if (adminCheck === 'true') {
             <div class="form-group mt-3">
-              <button class="btn btn-primary" (click)="savePrivileges()">Guardar</button>
+              <button class="btn btn-primary" (click)="savePrivileges()">Save</button>
             </div>
           }
           <div class="form-group mt-3">
-            <label class="font-weight-bold">Problemas:</label>
+            <label class="font-weight-bold">Spells:</label>
             <ul class="list-group">
               @if (user.exercises.length == 0) {
-                <p>Aprende hechizos</p>
+                <p>Learn Spells</p>
               }
               @else {
                 @for (exercise of exercisenames;track exercisenames) {
