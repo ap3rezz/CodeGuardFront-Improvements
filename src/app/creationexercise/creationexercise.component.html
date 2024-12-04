@@ -9,7 +9,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-12 mb-4">  
-        <textarea id="problemDescription" class="form-control card-text problem-card no-resize"  formControlName="description" rows="15" (input)="autoResize($event)" placeholder="Spell Description"></textarea> 
+        <textarea id="problemDescription" class="form-control card-text problem-card no-resize"  formControlName="description" rows="15" (input)="autoResize($event)" placeholder="Spell Description" (keydown)="handleTab($event)"></textarea> 
       </div>
     </div>
     <div class="row justify-content-center">
