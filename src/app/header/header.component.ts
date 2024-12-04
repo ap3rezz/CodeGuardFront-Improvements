@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit {
         next: (data) => {
           console.log("Datos del usuario: ", data);
           this.user.reset();
-          this.router.navigate(['/user', data.username]);
+          window.location.href=`/user/${data.username}`;
         },
         error: (error) => {
           console.error("El usuario no existe: ", error);
