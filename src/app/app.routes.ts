@@ -11,6 +11,7 @@ import { CreationExerciseComponent } from './creationexercise/creationexercise.c
 import { UserPageComponent } from './userpage/userpage.component';
 import { TestsListComponent } from './testslist/testslist.component';
 import { TestPageComponent } from './testpage/testpage.component';
+import { RestoreuserComponent } from './restoreuser/restoreuser.component';
 
 export const routes: Routes = [
     {path: 'signup', component: RegisterComponent},
@@ -25,4 +26,5 @@ export const routes: Routes = [
     {path: 'user/:id',component: UserPageComponent},
     {path: 'testslist',component: TestsListComponent},
     {path: 'test/:id', component: TestPageComponent },
+    {path: 'restoreUser', component: RestoreuserComponent},
 ]

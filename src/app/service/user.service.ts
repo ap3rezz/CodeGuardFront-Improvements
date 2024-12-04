@@ -5,6 +5,7 @@ import { UserRequest } from '../model/user-request';
 import { UserInfo } from '../model/user-info';
 import { environment } from '../environment';
 import { ChangePasswordResponse } from '../model/change-passwords-response';
+import { RestoreUser } from '../model/restore-user-request';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,10 @@ export class UserService {
   loginUser(loginRequest:UserRequest):Observable<any>{
     //Observe 'response' sirve para que en vez de recibir el cuerpo de la petición recibe toda la respuesta para extraer datos de la cabecera
     return this.httpClient.post<any>(`${this.apiURL}/login`, JSON.stringify(loginRequest), {headers: new HttpHeaders({'Content-Type':'application/json'}), observe: 'response'});
+  }
+
+  restoreUser(restoreUser:RestoreUser):Observable<any>{
+    return this.httpClient.post(`${this.apiURL}/user/restoreUser`, JSON.stringify(restoreUser), this.httpOptionsJson);
   }
 
   getUser(username:string):Observable<UserInfo>{
