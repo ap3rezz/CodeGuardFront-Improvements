@@ -50,7 +50,7 @@
         <div class="card problem-card text-center">
           <div class="card-body">
             <h6 class="card-title">Code</h6>
-            <textarea id="codeEditor" class="form-control" [(ngModel)]="userCode" [value]="placeholder" rows="20"></textarea> 
+            <textarea id="codeEditor" class="form-control" [(ngModel)]="userCode" [value]="placeholder" rows="20" (keydown)="handleTab($event)"></textarea> 
           </div>
         </div>
       </div>      
