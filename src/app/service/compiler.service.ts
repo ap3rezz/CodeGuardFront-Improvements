@@ -16,12 +16,12 @@ export class CompilerService {
   constructor(private http: HttpClient) { }
 
   postSolution(compilerRequest:CompilerRequest): Observable<CompilerResponse> {
-    let token: string = localStorage.getItem('JWT') || "";
+    let token: string = sessionStorage.getItem('JWT') || "";
 
     return this.http.post<CompilerResponse>(this.apiUrl+"compile", compilerRequest,{ headers: new HttpHeaders({ 'Authorization': token }) });
   }
   postTest(compilerRequest:CompilerTestRequest): Observable<CompilerResponse> {
-    let token: string = localStorage.getItem('JWT') || "";
+    let token: string = sessionStorage.getItem('JWT') || "";
 
     return this.http.post<CompilerResponse>(this.apiUrl+"test", compilerRequest,{ headers: new HttpHeaders({ 'Authorization': token }) });
   }

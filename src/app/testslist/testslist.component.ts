@@ -18,12 +18,12 @@ export class TestsListComponent implements OnInit {
 
   searchKeyword: string = ''; 
   searchType: string = 'title';
-  username: string = localStorage.getItem("loggedUsername") || ""; 
+  username: string = sessionStorage.getItem("loggedUsername") || ""; 
 
   constructor(private exerciseService: ExerciseService, private router: Router) {}
 
   ngOnInit(): void {
-    if(localStorage.getItem("JWT")){
+    if(sessionStorage.getItem("JWT")){
       this.exerciseService.getProblems().subscribe({
         next: (data) => {
           console.log("Problemas: ", data);

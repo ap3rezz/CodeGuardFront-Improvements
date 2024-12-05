@@ -34,22 +34,22 @@ export class UserService {
   }
 
   getUser(username:string):Observable<UserInfo>{
-    let token:string = localStorage.getItem('JWT')||"";
+    let token:string = sessionStorage.getItem('JWT')||"";
     return this.httpClient.get<UserInfo>(`${this.apiURL}/user/${username}`, {headers: new HttpHeaders({'Authorization':token})});
   }
 
   deleteLoggedUser():Observable<any>{
-    let token: string = localStorage.getItem('JWT') || "";
+    let token: string = sessionStorage.getItem('JWT') || "";
     return this.httpClient.delete(`${this.apiURL}/user/delete`, { headers: new HttpHeaders({ 'Authorization': token }) });
   }
 
   deleteUser(username: string): Observable<any> {
-    let token: string = localStorage.getItem('JWT') || "";
+    let token: string = sessionStorage.getItem('JWT') || "";
     return this.httpClient.delete(`${this.apiURL}/admin/delete?username=` + username, { headers: new HttpHeaders({ 'Authorization': token }) });
   }
 
   updatePassword(passwords: ChangePasswordResponse):Observable<any>{
-    let token: string = localStorage.getItem('JWT') || "";
+    let token: string = sessionStorage.getItem('JWT') || "";
     return this.httpClient.patch(`${this.apiURL}/user/changePassword`, passwords,{ headers: new HttpHeaders({ 'Authorization': token }) });
   }
   

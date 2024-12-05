@@ -20,20 +20,20 @@ export class HeaderComponent implements OnInit {
     username: ['',[Validators.required, Validators.pattern(/^[a-zA-Z]{3,}\w*$/)],],
   });
 
-  loggedUsername = localStorage.getItem("loggedUsername");
-  loggedUser = localStorage.getItem("JWT");
-  isTester = localStorage.getItem("tester");
-  isCreator = localStorage.getItem("creator");
+  loggedUsername = sessionStorage.getItem("loggedUsername");
+  loggedUser = sessionStorage.getItem("JWT");
+  isTester = sessionStorage.getItem("tester");
+  isCreator = sessionStorage.getItem("creator");
 
   ngOnInit(): void {
-    this.loggedUsername = localStorage.getItem("loggedUsername")||"";
+    this.loggedUsername = sessionStorage.getItem("loggedUsername")||"";
     this.authService.isLoggedIn$.subscribe(
       a => { if (a) this.updateHeader(); }
     );
     this.userService.getUser(this.loggedUsername).subscribe({
       next: data =>{
-        localStorage.setItem("tester", data.tester.toString());
-        localStorage.setItem("creator", data.creator.toString());
+        sessionStorage.setItem("tester", data.tester.toString());
+        sessionStorage.setItem("creator", data.creator.toString());
         this.updateHeader();
       },
       error: error=>{
@@ -43,14 +43,14 @@ export class HeaderComponent implements OnInit {
   }
 
   updateHeader() {
-    this.loggedUsername = localStorage.getItem("loggedUsername");
-    this.loggedUser = localStorage.getItem("JWT");
-    this.isTester = localStorage.getItem("tester");
-    this.isCreator = localStorage.getItem("creator");
+    this.loggedUsername = sessionStorage.getItem("loggedUsername");
+    this.loggedUser = sessionStorage.getItem("JWT");
+    this.isTester = sessionStorage.getItem("tester");
+    this.isCreator = sessionStorage.getItem("creator");
   }
 
   logout() {
-    localStorage.clear();
+    sessionStorage.clear();
     this.updateHeader();
   }
 
