@@ -46,7 +46,7 @@ export class ExercisePageComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    const loggedUsername = localStorage.getItem("loggedUsername");
+    const loggedUsername = sessionStorage.getItem("loggedUsername");
     if (id && loggedUsername) {
       this.exerciseService.getProblem(id).subscribe({
         next: (data) => {

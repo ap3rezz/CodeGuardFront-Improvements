@@ -21,7 +21,7 @@ export class ExercisePageSolutionsComponent implements OnInit {
 
   ngOnInit(): void {
     const routeId = this.route.snapshot.paramMap.get('id');
-    if(!localStorage.getItem("JWT")){
+    if(!sessionStorage.getItem("JWT")){
       this.router.navigate(['/login']);
     }
     if (routeId) {

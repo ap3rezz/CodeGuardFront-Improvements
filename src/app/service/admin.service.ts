@@ -13,7 +13,7 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   postSolution(adminprivilegesrequest: AdminPrivilegesRequest): Observable<any> {
-    let token: string = localStorage.getItem('JWT') || "";
+    let token: string = sessionStorage.getItem('JWT') || "";
     return this.http.patch<Observable<any>>(this.apiUrl+"updateUserPrivileges", adminprivilegesrequest,{ headers: new HttpHeaders({ 'Authorization': token }) });
   }
 }

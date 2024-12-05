@@ -41,11 +41,11 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(!localStorage.getItem("JWT")){
+    if(!sessionStorage.getItem("JWT")){
       this.router.navigate(['/login']);
     }
 
-    const admin = localStorage.getItem("admin");
+    const admin = sessionStorage.getItem("admin");
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id && admin) {
@@ -75,7 +75,7 @@ export class UserPageComponent implements OnInit {
         }
       });
     } else {
-      console.error('No se encontró el nombre de usuario en el localstorage');
+      console.error('No se encontró el nombre de usuario en el sessionStorage');
     }
   }
 

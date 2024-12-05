@@ -48,8 +48,8 @@ export class TestPageComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    const loggedUsername = localStorage.getItem("loggedUsername");
-    if(!localStorage.getItem("JWT")){
+    const loggedUsername = sessionStorage.getItem("loggedUsername");
+    if(!sessionStorage.getItem("JWT")){
       this.router.navigate(['/login']);
     }
     if (id && loggedUsername) {

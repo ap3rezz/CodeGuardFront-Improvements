@@ -52,7 +52,7 @@ export class PersonalpageComponent implements OnInit {
   deleteThisUser(): void {
     this.userservice.deleteLoggedUser().subscribe({
       next: (response) => {
-        localStorage.clear();
+        sessionStorage.clear();
         console.log("Deleted user:", response);
         this.authservice.setLoggedIn(true);
         this.router.navigate(['/']);
@@ -66,7 +66,7 @@ export class PersonalpageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const loggedUsername = localStorage.getItem('loggedUsername');
+    const loggedUsername = sessionStorage.getItem('loggedUsername');
     if (loggedUsername) {
       this.userservice.getUser(loggedUsername).subscribe({
         next: (data) => {
@@ -93,7 +93,7 @@ export class PersonalpageComponent implements OnInit {
         }
       });
     } else {
-      console.error('No se encontró el nombre de usuario en el localstorage');
+      console.error('No se encontró el nombre de usuario en el sessionStorage');
       this.router.navigate(['/login']);
     }
   }
