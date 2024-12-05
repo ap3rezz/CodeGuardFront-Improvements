@@ -34,7 +34,7 @@ export class LoginComponent {
         username: this.loginForm.value.username,
         password: this.loginForm.value.password,
       };
-
+      //console.log(`Enviando datos: ${JSON.stringify(this.loginForm.value)}`)
       this.userService.loginUser(signupRequest).subscribe(
         response=>{
           console.log(`Cuerpo de la respuesta API: ${response.body}`);

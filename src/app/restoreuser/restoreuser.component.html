@@ -1,0 +1,64 @@
+<div
+  class="container d-flex align-items-center justify-content-center"
+  style="height: 80vh"
+>
+  <div class="form-box" style="min-height: 100px">
+    <div class="p-4 w-100">
+      <h1>Restore</h1>
+      <div class="d-flex justify-content-start align-items-center">
+        <form [formGroup]="restoreUserForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <input type="text" formControlName="username" placeholder="Username"/>
+            <div class="error-feedback">
+              @if (restoreUserForm.controls['username'].touched &&
+              restoreUserForm.controls['username'].hasError('required')) {
+              <span>Please enter your full name</span>
+              }
+            </div>
+            <div class="error-feedback">
+              @if (restoreUserForm.controls['username'].touched &&
+              restoreUserForm.controls['username'].hasError('pattern')) {
+              <span>Please enter a valid name</span>
+              }
+            </div>
+          </div>
+          <div class="mb-3">
+            <input type="password" formControlName="password" placeholder="password"/>
+            <div class="error-feedback">
+              @if (restoreUserForm.controls['password'].touched &&
+              restoreUserForm.controls['password'].hasError('required')) {
+              <span>Please enter a valid password</span>
+              }
+            </div>
+          </div>
+          <div class="mb-3">
+            <input type="password" formControlName="confirm" placeholder="Confirm password"/>
+            <div class="error-feedback">
+              @if (restoreUserForm.controls['confirm'].touched &&
+              restoreUserForm.value.confirm!==restoreUserForm.value.password) {
+              <span>The password must be the same</span>
+              }
+            </div>
+          </div>
+          <div class="mb-3">
+            <button
+              type="submit"
+              class="btn register"
+              [disabled]="!restoreUserForm.valid || restoreUserForm.value.confirm!==restoreUserForm.value.password"
+            >
+              Restore
+            </button>
+          </div>
+          <div class="error-feedback">
+            @if (userNotFound) {
+            <span>Username not found</span>
+            }
+            @if (invalidCredentials) {
+            <span>Username or password not correct</span>
+            }
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
