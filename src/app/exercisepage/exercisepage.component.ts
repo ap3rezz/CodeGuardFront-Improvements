@@ -27,6 +27,7 @@ export class ExercisePageComponent implements OnInit {
   problemdescriptionHtml: string = ""; 
   placeholder: string = "";
   mathJaxLoaded: boolean = false; 
+  adminCheck:string|null|undefined = "false";
 
   constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private compilerService: CompilerService) { }
 
@@ -45,6 +46,9 @@ export class ExercisePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const admin = sessionStorage.getItem("admin");
+    this.adminCheck=admin;
+
     const id = this.route.snapshot.paramMap.get('id');
     const loggedUsername = sessionStorage.getItem("loggedUsername");
     if (id && loggedUsername) {

@@ -1,24 +1,29 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AfterViewChecked, Component } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../service/user.service';
 import { ExerciseService } from '../service/exercise.service';
-import { HttpClient } from '@angular/common/http';
+import { OnInit } from '@angular/core';
+import { CompilerTestRequest } from '../model/compiler-test-request';
 import { ExerciseResponse } from '../model/exercise-response';
 import { CompilerService } from '../service/compiler.service';
-import { CompilerTestRequest } from '../model/compiler-test-request';
 import { marked } from 'marked';
+import { HttpClient } from '@angular/common/http';
 import { AdminService } from '../service/admin.service';
+import { CompilerRequest } from '../model/compiler-request';
+import { FormsModule } from '@angular/forms';
 
 declare var MathJax: any;
 
 @Component({
-  selector: 'app-testpage',
+  selector: 'app-changeexercisetest',
   standalone: true,
-  imports: [FormsModule, RouterLink],
-  templateUrl: './testpage.component.html',
-  styleUrls: ['./testpage.component.css']
+  imports: [FormsModule, CommonModule],
+  templateUrl: './changeexercisetest.component.html',
+  styleUrl: './changeexercisetest.component.css'
 })
-export class TestPageComponent implements OnInit, AfterViewChecked {
+export class ChangeexercisetestComponent implements OnInit, AfterViewChecked {
   problemtitle: string = "";
   problemdescription: string = "";
   stackTrace: string = "";
@@ -28,8 +33,9 @@ export class TestPageComponent implements OnInit, AfterViewChecked {
   solver: boolean = false;
   mathJaxLoaded: boolean = false;
   problemdescriptionHtml: string = ""; 
+  exerciseIdRoute:string|null|undefined = "";
 
-  constructor(private adminService:AdminService, private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private compilerService: CompilerService) { }
+  constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private compilerService: CompilerService, private adminService:AdminService) { }
 
   problem: ExerciseResponse = {
     id: 0,
@@ -82,7 +88,8 @@ export class TestPageComponent implements OnInit, AfterViewChecked {
   }
 
   onSubmit(): void {
-    const id = this.problem.id;
+        const id = this.problem.id;
+        this.exerciseIdRoute=this.route.snapshot.paramMap.get('id');
     this.stackTrace = "";
     if (id) {
       this.solution.exerciseId = id;
@@ -95,9 +102,15 @@ export class TestPageComponent implements OnInit, AfterViewChecked {
             this.stackTrace = data.exerciseCompilationMessage;
           } else {
             if (data.exerciseCompilationCode == 0) {
-              //this.adminService.changeExerciseTest(id, this.solution.exerciseTests)
               this.stackTrace += data.executionMessage;
-
+              this.adminService.changeExerciseTest(this.exerciseIdRoute, this.solution.exerciseTests).subscribe(
+                response=>{
+                  console.log(`API response: ${response}`)
+                  this.router.navigate([``]);
+                },error=>{
+                  console.error(`ERROR: ${error}`)
+                }
+              );
             }
           }
           console.log("Resultado de la compilación: ", data);
