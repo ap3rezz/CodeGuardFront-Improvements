@@ -3,7 +3,7 @@
       <div class="col-12 d-flex justify-content-center mb-2">
         <div class="card problem-card text-center title-card">
           <div class="card-body">
-            <h5 class="card-title">{{ problemtitle }}</h5>
+            <h5 class="card-title">{{ exerciseTitle }}</h5>
           </div>
         </div>
       </div>
@@ -13,10 +13,10 @@
       <div class="col-12 mb-4">
         <div class="card problem-card">
           <div class="card-body">
-            @if(problem.creator != "ProjectEuler API") {
-              <div [innerHTML]="problemdescriptionHtml"></div>
+            @if(exercise.creator != "ProjectEuler API") {
+              <div [innerHTML]="exerciseDescription"></div>
             } @else {
-              <div [innerHTML]="problemdescription" (load)="renderMathJax()"></div>
+              <div [innerHTML]="exerciseDescriptionHtml" (load)="renderMathJax()"></div>
             }
           </div>
         </div>
@@ -40,7 +40,7 @@
             <div class="card-body">
               <h6 class="card-title">Code</h6>
               <!-- [(ngModel)]="userCode" -->
-              <textarea id="codeEditor" class="form-control"  rows="20" placeholder="Put ur code here" (keydown)="handleTab($event)"></textarea> 
+              <textarea id="codeEditor" class="form-control"  rows="20" [(ngModel)]="userCode" placeholder="Put ur code here" (keydown)="handleTab($event)"></textarea> 
             </div>
           </div>
         </div>      
@@ -51,7 +51,7 @@
             <div class="card-body">
               <h6 class="card-title">Tests</h6>
               <!-- [(ngModel)]="userTestsCode" -->
-              <textarea id="codeEditor" class="form-control"  rows="20" placeholder="Put ur tests here" (keydown)="handleTab($event)"></textarea> 
+              <textarea id="codeEditor" class="form-control"  rows="20" [(ngModel)]="userTestsCode" placeholder="Put ur tests here" (keydown)="handleTab($event)"></textarea> 
             </div>
           </div>
         </div>
@@ -62,11 +62,12 @@
             <div class="card-body">
               <h6 class="card-title">Placeholder</h6>
               <!-- [(ngModel)]="exercisePlaceHolder" -->
-              <textarea id="placeholderEditor" class="form-control"  rows="5" placeholder="Put ur placeholder here" (keydown)="handleTab($event)"></textarea> 
+              <textarea id="placeholderEditor"  class="form-control"  rows="5" [(ngModel)]="exercisePlaceholder" placeholder="Put ur placeholder here" (keydown)="handleTab($event)"></textarea> 
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- [innerHTML]="exercisePlaceholder" -->
   

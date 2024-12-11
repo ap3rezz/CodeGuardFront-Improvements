@@ -28,6 +28,6 @@ export const routes: Routes = [
     {path: 'testslist',component: TestsListComponent},
     {path: 'test/:id', component: TestPageComponent },
     {path: 'restoreUser', component: RestoreuserComponent},
-    {path: 'changeExerciseTest', component: ChangeexercisetestComponent},
+    {path: 'changeExerciseTest/:id', component: ChangeexercisetestComponent},
     //{path: 'home', component: HomeComponent}
 ]

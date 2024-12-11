@@ -20,8 +20,15 @@
   @if (adminCheck==='true') {
     <div class="row justify-content-center">
       <div class="col-12 d-flex justify-content-end mb-2">
-        <button routerLink="/changeExerciseTest" class="btn btn-solutions">
-          ChangeTest
+        <button [routerLink]="['/changeExerciseTest', problem.id]" class="btn btn-solutions">
+          Change Test
+        </button>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-12 d-flex justify-content-end mb-2">
+        <button (click)="deleteTest()" class="btn btn-solutions">
+          Delete Test
         </button>
       </div>
     </div>

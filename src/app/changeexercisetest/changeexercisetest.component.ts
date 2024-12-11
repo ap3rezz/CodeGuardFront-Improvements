@@ -24,34 +24,30 @@ declare var MathJax: any;
   styleUrl: './changeexercisetest.component.css'
 })
 export class ChangeexercisetestComponent implements OnInit, AfterViewChecked {
-  problemtitle: string = "";
-  problemdescription: string = "";
-  stackTrace: string = "";
-  userCode: string = "";
-  userTestsCode: string = "";
-  exercisePlaceHolder: string = ""; 
-  solver: boolean = false;
-  mathJaxLoaded: boolean = false;
-  problemdescriptionHtml: string = ""; 
-  exerciseIdRoute:string|null|undefined = "";
+  
+  exerciseTitle:string="";
+  exerciseDescription:string="";
+  exerciseDescriptionHtml:string="";
+  exercisePlaceholder:string="";
+  exerciseCreator:string="";
+  exerciseTester:string="";
+  stackTrace:string="";
+  userCode:string="";
+  userTestsCode:string="";
+  //exerciseNewTest:string="";
 
-  constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private compilerService: CompilerService, private adminService:AdminService) { }
+  constructor(private adminService:AdminService, private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private compilerService: CompilerService) { }
 
-  problem: ExerciseResponse = {
-    id: 0,
-    title: "",
-    description: "",
-    placeholder: "",
-    tester: "",
-    creator: "",
+  exercise: ExerciseResponse = {
+
+    id:0,
+    creator:"",
+    description:"",
+    placeholder:"",
+    tester:"",
+    title:"",
+
   };
-
-  solution: CompilerTestRequest = {
-    exerciseId: 0,
-    exerciseSolution: "",
-    exerciseTests: "",
-    exercisePlaceHolder: "",
-  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -59,24 +55,28 @@ export class ChangeexercisetestComponent implements OnInit, AfterViewChecked {
     if(!sessionStorage.getItem("JWT")){
       this.router.navigate(['/login']);
     }
-    if (id && loggedUsername) {
+    
+    if(id){
       this.exerciseService.getProblem(id).subscribe({
         next: (data) => {
-          this.problemtitle = data.title;
-          this.problemdescription = data.description;
-          this.problem = data;
-          this.problemdescriptionHtml = this.convertMarkdownToHtml(this.problemdescription);
-          console.log('Datos del problema:', data);
-        },
-        error: (error) => {
-          console.error('Error al obtener el problema:', error);
+          console.log(`Api Response: ${data}, ${data.title}`)
+          this.exerciseTitle=data.title;
+          this.exerciseDescription=data.description;
+          this.exerciseCreator=data.creator;
+          this.exerciseTester=data.tester;
+          this.exercisePlaceholder=data.placeholder;
+        },error:(error)=>{
+          console.error(`Error al obtener: ${error}`)
+  
         }
       });
     }
+
+
   }
 
   ngAfterViewChecked(): void {
-    if (this.problem.creator === "ProjectEuler API" && typeof MathJax !== 'undefined') {
+    if (this.exercise.creator === "ProjectEuler API" && typeof MathJax !== 'undefined') {
       this.renderMathJax();
     }
   }
@@ -88,47 +88,23 @@ export class ChangeexercisetestComponent implements OnInit, AfterViewChecked {
   }
 
   onSubmit(): void {
-        const id = this.problem.id;
-        this.exerciseIdRoute=this.route.snapshot.paramMap.get('id');
-    this.stackTrace = "";
-    if (id) {
-      this.solution.exerciseId = id;
-      this.solution.exerciseSolution = this.userCode;
-      this.solution.exerciseTests = this.userTestsCode;
-      this.solution.exercisePlaceHolder = this.exercisePlaceHolder; 
-      this.compilerService.postTest(this.solution).subscribe({
-        next: (data) => {
-          if (data.exerciseCompilationCode != 0) {
-            this.stackTrace = data.exerciseCompilationMessage;
-          } else {
-            if (data.exerciseCompilationCode == 0) {
-              this.stackTrace += data.executionMessage;
-              this.adminService.changeExerciseTest(this.exerciseIdRoute, this.solution.exerciseTests).subscribe(
-                response=>{
-                  console.log(`API response: ${response}`)
-                  this.router.navigate([``]);
-                },error=>{
-                  console.error(`ERROR: ${error}`)
-                }
-              );
-            }
-          }
-          console.log("Resultado de la compilación: ", data);
+    const id = this.route.snapshot.paramMap.get('id');
+    
+    if(id && this.userTestsCode){
+      this.adminService.changeExerciseTest(id, this.userTestsCode).subscribe({
+        next:(next)=>{
+          console.log(`API REQUEST ${id}, ${this.userTestsCode}`);
+          this.router.navigate(['/exerciselist']);
+          console.log(`API REPSONSE ${next}`);
+
         },
-        error: (error) => {
-          console.error("Error al compilar el código:", error);
-          if(error.status == 400){
-            this.stackTrace="One class name is not well written, The placeholder is compulsory";
-          }
-          if(error.status == 408){
-            this.stackTrace="Time limit exceeded";
-          }
-          if(error.status == 500){
-            this.stackTrace="Internal Server Error";
-          }
+        error:(error)=>{
+          console.error(`API REQUEST ${this.userTestsCode}`);
+          console.error(`API RESPONSE ${error}`);
         }
       });
     }
+
   }
 
   convertMarkdownToHtml(markdown: string): string {

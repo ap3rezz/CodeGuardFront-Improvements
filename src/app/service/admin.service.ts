@@ -27,7 +27,7 @@ export class AdminService {
 
   deleteExerciseTest(exerciseId:string){
     let token: string = sessionStorage.getItem('JWT') || "";
-    return this.http.delete(`${this.apiUrl}/deleteTestForExercise?exerciseId=` +exerciseId, { headers: new HttpHeaders({ 'Authorization': token }) });
+    return this.http.delete(`${this.apiUrl}/deleteTestFromExercise?exerciseId=` +exerciseId, { headers: new HttpHeaders({ 'Authorization': token }) });
   }
 
 
