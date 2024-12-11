@@ -8,6 +8,7 @@ import { CompilerRequest } from '../model/compiler-request';
 import { CompilerService } from '../service/compiler.service';
 import { marked } from 'marked';
 import { retry } from 'rxjs/operators';
+import { AdminService } from '../service/admin.service';
 
 declare var MathJax: any;
 
@@ -27,8 +28,9 @@ export class ExercisePageComponent implements OnInit {
   problemdescriptionHtml: string = ""; 
   placeholder: string = "";
   mathJaxLoaded: boolean = false; 
+  adminCheck:string|null|undefined = "false";
 
-  constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private compilerService: CompilerService) { }
+  constructor(private adminService:AdminService, private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private compilerService: CompilerService) { }
 
   problem: ExerciseResponse = {
     id: 0,
@@ -45,6 +47,9 @@ export class ExercisePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const admin = sessionStorage.getItem("admin");
+    this.adminCheck=admin;
+
     const id = this.route.snapshot.paramMap.get('id');
     const loggedUsername = sessionStorage.getItem("loggedUsername");
     if (id && loggedUsername) {
@@ -130,6 +135,24 @@ export class ExercisePageComponent implements OnInit {
     
     marked.setOptions({ async: false });
     return marked(markdown) as string;
+  }
+
+  deleteTest():void{
+
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if(id){
+      this.adminService.deleteExerciseTest(id).subscribe({
+        next:(next)=>{
+          console.log(`API RESPONSE ${next}`)
+          this.router.navigate(['/exerciselist']);
+        },
+        error:(error)=>{
+          console.error(`ERROR: ${error}`)
+        }
+      });
+    }
+
   }
 
   handleTab(event: KeyboardEvent){

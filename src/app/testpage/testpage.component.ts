@@ -7,6 +7,7 @@ import { ExerciseResponse } from '../model/exercise-response';
 import { CompilerService } from '../service/compiler.service';
 import { CompilerTestRequest } from '../model/compiler-test-request';
 import { marked } from 'marked';
+import { AdminService } from '../service/admin.service';
 
 declare var MathJax: any;
 
@@ -28,7 +29,7 @@ export class TestPageComponent implements OnInit, AfterViewChecked {
   mathJaxLoaded: boolean = false;
   problemdescriptionHtml: string = ""; 
 
-  constructor(private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private compilerService: CompilerService) { }
+  constructor(private adminService:AdminService, private route: ActivatedRoute, private exerciseService: ExerciseService, private http: HttpClient, private router: Router, private compilerService: CompilerService) { }
 
   problem: ExerciseResponse = {
     id: 0,
@@ -94,7 +95,9 @@ export class TestPageComponent implements OnInit, AfterViewChecked {
             this.stackTrace = data.exerciseCompilationMessage;
           } else {
             if (data.exerciseCompilationCode == 0) {
+              //this.adminService.changeExerciseTest(id, this.solution.exerciseTests)
               this.stackTrace += data.executionMessage;
+
             }
           }
           console.log("Resultado de la compilación: ", data);

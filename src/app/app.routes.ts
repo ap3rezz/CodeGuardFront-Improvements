@@ -12,6 +12,7 @@ import { UserPageComponent } from './userpage/userpage.component';
 import { TestsListComponent } from './testslist/testslist.component';
 import { TestPageComponent } from './testpage/testpage.component';
 import { RestoreuserComponent } from './restoreuser/restoreuser.component';
+import { ChangeexercisetestComponent } from './changeexercisetest/changeexercisetest.component';
 
 export const routes: Routes = [
     {path: 'signup', component: RegisterComponent},
@@ -27,4 +28,6 @@ export const routes: Routes = [
     {path: 'testslist',component: TestsListComponent},
     {path: 'test/:id', component: TestPageComponent },
     {path: 'restoreUser', component: RestoreuserComponent},
+    {path: 'changeExerciseTest/:id', component: ChangeexercisetestComponent},
+    //{path: 'home', component: HomeComponent}
 ]
